@@ -3,6 +3,7 @@ import numpy as np
 
 PI = math.pi
 
+NUMPOINTS = {}
 
 # Input variables
 
@@ -31,87 +32,77 @@ parameters = {
     "LENGTH2": 0,  # Maximum lenght in LIC 12
     "RADIUS": 0,  # Maximum lenght in LIC 13
     "AREA2": 0,  # Maximum area in LIC 14
+
 }
 
-# Global variables declarations
+def decide():
+    fuv_response = fuv(pum(cmv()))
 
+    for boolean in fuv_response:
+        if not boolean:
+            return 'NO'
+    return 'YES'
 
-def DECIDE(numpoints, points, parameters, lcm, puv):
+def cmv():
+    response = [lic0(),lic1(),lic2(),lic3(),lic4(),lic5(),lic6(),lic7(),lic8(),lic9(),lic10(),lic11(),lic12(),lic13(),lic14()]
+
+    return response
+
+def pum(cmv_response):
+    pass
+
+def fuv(pum_response):
     pass
 
 
-def cmv(numpoints, points, parameters):
-    # Calls the 15 LIC
+def lic0():
     pass
 
-
-def pum(lcm, cmv):
+def lic1():
     pass
 
-
-def fuv(puv, pum):
+def lic2():
+    pass
+    
+def lic3():
+    pass
+    
+def lic4():
     pass
 
-
-def lic0(parameters):
+def lic5():
+    pass
+    
+def lic6():
+    pass
+    
+def lic7():
     pass
 
-
-def lic1(parameters):
+def lic8():
+    pass
+    
+def lic9():
     pass
 
-
-def lic2(parameters):
+def lic10():
     pass
 
-
-def lic3(parameters):
+def lic11():
+    pass
+    
+def lic12():
     pass
 
-
-def lic4(parameters):
+def lic13():
     pass
 
+def lic14():
 
-def lic5(parameters):
-    pass
-
-
-def lic6(parameters):
-    pass
-
-
-def lic7(parameters):
-    pass
-
-
-def lic8(parameters):
-    pass
-
-
-def lic9(parameters):
-    pass
-
-
-def lic10(parameters):
-    pass
-
-
-def lic11(parameters):
-    pass
-
-
-def lic12(parameters):
-    pass
-
-
-def lic13(parameters):
-    pass
-
-
-def lic14(parameters):
     pass
 
 
 if __name__ == '__main__':
-    DECIDE(numpoints, points, parameters, lcm, puv)
+    print(decide(numpoints, points parameters, lcm, puv))
+    
+
