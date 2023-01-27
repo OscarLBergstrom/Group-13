@@ -28,7 +28,8 @@ PARAMETERS = {
 "RADIUS" : 0,      #Maximum lenght in LIC 13
 "AREA2" : 0,       #Maximum area in LIC 14
 }
-#Global variables declarations
+# Global variables declarations
+
 
 def decide():
     fuv_response = fuv(pum(cmv()))
@@ -94,6 +95,7 @@ def lic13():
 
 def lic14():
     pass
+
 
 if __name__ == '__main__':
     print(decide())
