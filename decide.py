@@ -54,8 +54,29 @@ def lic0():
 def lic1():
     pass
 
-def lic2():
-    pass
+# There exists at least one set of three consecutive data points which form an angle such that:
+# angle < (PI−EPSILON)
+# or
+# angle > (PI+EPSILON)
+# The second of the three consecutive points is always the vertex of the angle. If either the first
+# point or the last point (or both) coincides with the vertex, the angle is undefined and the LIC
+# is not satisfied by those three points.
+# (0 ≤ EPSILON < PI)
+
+def lic2(points, numpoints):
+    for i in range (1,numpoints-1):
+        v = points[i]
+        p1 = points[i-1]
+        p2 = points[i+1]
+        if(np.array_equal(v,p2) or np.array_equal(v,p1)):
+            continue
+
+        a = [v[0]-p1[0], v[1]-p1[1]]
+        b = [v[0]-p2[0], v[1]-p2[1]]
+        angle = np.arccos(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))  #inverted dot product formula, angle n radians
+        if angle < PI - parameters["EPSILON"] or angle > PI + parameters["EPSILON"]:
+            return True
+    return False
     
 def lic3():
     pass
