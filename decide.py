@@ -6,12 +6,12 @@ PI = math.pi
 
 # Input variables
 
-numpoints
-points
-lcm
-puv
+numpoints = 0
+points = np.zeros((numpoints, 2))
+lcm = np.zeros((15, 15))  # 0=NOTUSED, 1=ANDD, 2=ORR
+puv = np.zeros(15)
 
-PARAMETERS_T = {
+parameters = {
     # Inpus to the Decide()-function
     "LENGTH1": 0,     # LICS 0,7,12
     "RADIUS1": 0,     # LICS 1,8,13
@@ -32,85 +32,86 @@ PARAMETERS_T = {
     "RADIUS": 0,  # Maximum lenght in LIC 13
     "AREA2": 0,  # Maximum area in LIC 14
 }
+
 # Global variables declarations
 
 
-def DECIDE(PARAMETERS_T):
+def DECIDE(numpoints, points, parameters, lcm, puv):
     pass
 
 
-def cmv(numpoints, points, PARAMETERS_T):
+def cmv(numpoints, points, parameters):
     # Calls the 15 LIC
     pass
 
 
-def pum(LCM, CMV):
+def pum(lcm, cmv):
     pass
 
 
-def fuv(PUV, PUM):
+def fuv(puv, pum):
     pass
 
 
-def lic0(PARAMETERS_T):
+def lic0(parameters):
     pass
 
 
-def lic1(PARAMETERS_T):
+def lic1(parameters):
     pass
 
 
-def lic2(PARAMETERS_T):
+def lic2(parameters):
     pass
 
 
-def lic3(PARAMETERS_T):
+def lic3(parameters):
     pass
 
 
-def lic4(PARAMETERS_T):
+def lic4(parameters):
     pass
 
 
-def lic5(PARAMETERS_T):
+def lic5(parameters):
     pass
 
 
-def lic6(PARAMETERS_T):
+def lic6(parameters):
     pass
 
 
-def lic7(PARAMETERS_T):
+def lic7(parameters):
     pass
 
 
-def lic8(PARAMETERS_T):
+def lic8(parameters):
     pass
 
 
-def lic9(PARAMETERS_T):
+def lic9(parameters):
     pass
 
 
-def lic10(PARAMETERS_T):
+def lic10(parameters):
     pass
 
 
-def lic11(PARAMETERS_T):
+def lic11(parameters):
     pass
 
 
-def lic12(PARAMETERS_T):
+def lic12(parameters):
     pass
 
 
-def lic13(PARAMETERS_T):
+def lic13(parameters):
     pass
 
 
-def lic14(PARAMETERS_T):
+def lic14(parameters):
     pass
 
 
 if __name__ == '__main__':
-    DECIDE()
+    DECIDE(numpoints, points, parameters, lcm, puv)
