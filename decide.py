@@ -98,11 +98,8 @@ def lic13():
     pass
 
 def lic14():
-
     pass
 
 
 if __name__ == '__main__':
-    print(decide(numpoints, points parameters, lcm, puv))
-    
-
+    print(decide())
