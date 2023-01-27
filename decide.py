@@ -26,3 +26,66 @@ PARAMETERS_T = {
 "AREA2" : 0,       #Maximum area in LIC 14
 }
 #Global variables declarations
+
+def DECIDE(PARAMETERS_T):
+    pass
+
+def cmv(numpoints, points, PARAMETERS_T):
+    #Calls the 15 LIC
+    pass
+
+def pum(LCM,CMV):
+    pass
+
+def fuv(PUV,PUM):
+    pass
+
+
+def lic0(PARAMETERS_T):
+    pass
+
+def lic1(PARAMETERS_T):
+    pass
+
+def lic2(PARAMETERS_T):
+    pass
+    
+def lic3(PARAMETERS_T):
+    pass
+    
+def lic4(PARAMETERS_T):
+    pass
+
+def lic5(PARAMETERS_T):
+    pass
+    
+def lic6(PARAMETERS_T):
+    pass
+    
+def lic7(PARAMETERS_T):
+    pass
+
+def lic8(PARAMETERS_T):
+    pass
+    
+def lic9(PARAMETERS_T):
+    pass
+
+def lic10(PARAMETERS_T):
+    pass
+
+def lic11(PARAMETERS_T):
+    pass
+    
+def lic12(PARAMETERS_T):
+    pass
+
+def lic13(PARAMETERS_T):
+    pass
+
+def lic14(PARAMETERS_T):
+    pass
+
+if __name__ == '__main__':
+    DECIDE()
+    
