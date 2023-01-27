@@ -36,17 +36,10 @@ parameters = {
 }
 
 def decide():
-    fuv_response = fuv(pum(cmv()))
-
-    for boolean in fuv_response:
-        if not boolean:
-            return 'NO'
-    return 'YES'
+    pass
 
 def cmv():
-    response = [lic0(),lic1(),lic2(),lic3(),lic4(),lic5(),lic6(),lic7(),lic8(),lic9(),lic10(),lic11(),lic12(),lic13(),lic14()]
-
-    return response
+    pass
 
 def pum(cmv_response):
     pass
