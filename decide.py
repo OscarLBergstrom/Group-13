@@ -3,8 +3,11 @@ import numpy as np
 
 PI = math.pi
 
+NUMPOINTS = {}
 
-PARAMETERS_T = {  
+POINTS = {}
+
+PARAMETERS = {  
 #Inpus to the Decide()-function
 "LENGTH1" : 0,     # LICS 0,7,12
 "RADIUS1" : 0,     # LICS 1,8,13
@@ -27,65 +30,71 @@ PARAMETERS_T = {
 }
 #Global variables declarations
 
-def DECIDE(PARAMETERS_T):
+def decide():
+    fuv_response = fuv(pum(cmv()))
+
+    for boolean in fuv_response:
+        if not boolean:
+            return 'NO'
+    return 'YES'
+
+def cmv():
+    response = [lic0(),lic1(),lic2(),lic3(),lic4(),lic5(),lic6(),lic7(),lic8(),lic9(),lic10(),lic11(),lic12(),lic13(),lic14()]
+
+    return response
+
+def pum(cmv_response):
     pass
 
-def cmv(numpoints, points, PARAMETERS_T):
-    #Calls the 15 LIC
-    pass
-
-def pum(LCM,CMV):
-    pass
-
-def fuv(PUV,PUM):
+def fuv(pum_response):
     pass
 
 
-def lic0(PARAMETERS_T):
+def lic0():
     pass
 
-def lic1(PARAMETERS_T):
+def lic1():
     pass
 
-def lic2(PARAMETERS_T):
+def lic2():
     pass
     
-def lic3(PARAMETERS_T):
+def lic3():
     pass
     
-def lic4(PARAMETERS_T):
+def lic4():
     pass
 
-def lic5(PARAMETERS_T):
+def lic5():
     pass
     
-def lic6(PARAMETERS_T):
+def lic6():
     pass
     
-def lic7(PARAMETERS_T):
+def lic7():
     pass
 
-def lic8(PARAMETERS_T):
+def lic8():
     pass
     
-def lic9(PARAMETERS_T):
+def lic9():
     pass
 
-def lic10(PARAMETERS_T):
+def lic10():
     pass
 
-def lic11(PARAMETERS_T):
+def lic11():
     pass
     
-def lic12(PARAMETERS_T):
+def lic12():
     pass
 
-def lic13(PARAMETERS_T):
+def lic13():
     pass
 
-def lic14(PARAMETERS_T):
+def lic14():
     pass
 
 if __name__ == '__main__':
-    DECIDE()
+    print(decide())
     
