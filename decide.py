@@ -35,14 +35,18 @@ parameters = {
 
 }
 
+
 def decide():
     pass
+
 
 def cmv():
     pass
 
+
 def pum(cmv_response):
     pass
+
 
 def fuv(pum_response):
     pass
@@ -51,47 +55,110 @@ def fuv(pum_response):
 def lic0():
     pass
 
+
 def lic1():
-    pass
+
+    radius = parameters["LENGTH1"]
+
+    if numpoints < 3:
+        return False
+
+    for i in range(len(points) - 2):
+        check = circleHelper(points[i], points[i+1], points[1+2], radius)
+        if check:
+            return True
+
+    return False
+
 
 def lic2():
     pass
-    
+
+
 def lic3():
     pass
-    
+
+
 def lic4():
     pass
 
+
 def lic5():
     pass
-    
+
+
 def lic6():
     pass
-    
+
+
 def lic7():
     pass
 
+
 def lic8():
+
     pass
-    
+
+
 def lic9():
     pass
+
 
 def lic10():
     pass
 
+
 def lic11():
     pass
-    
+
+
 def lic12():
     pass
+
 
 def lic13():
     pass
 
+
 def lic14():
     pass
+
+
+def circleHelper(a, b, c, radius):
+
+    d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
+    d2 = math.sqrt((c[0] - b[0])**2 + (c[1] - b[1])**2)
+    d3 = math.sqrt((c[0] - a[0])**2 + (c[1] - a[1])**2)
+
+    diameter = 2 * radius
+    # Radius of the circumcircle that the three points create from a triangle
+    # https://study.com/academy/lesson/circumradius-definition-formula.html
+
+    if isTriangle(a, b, c):
+        rCircumCircle = (d1*d2*d3)/(math.sqrt((d1 + d2 + d3) *
+                                              (d2 + d3 - d1)*(d3 + d1 - d2)*(d1 + d2 - d3)))
+        if rCircumCircle < radius:
+            return True
+
+    else:
+        if d1 > diameter or d2 > diameter or d3 > diameter:
+            return True
+
+        else:
+            return False
+
+
+def isTriangle(a, b, c):
+    # calculate the distance between each pair of points
+    d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
+    d2 = math.sqrt((c[0] - b[0])**2 + (c[1] - b[1])**2)
+    d3 = math.sqrt((c[0] - a[0])**2 + (c[1] - a[1])**2)
+
+    # check if the sum of any two sides of the triangle is greater than the third side
+    if d1 + d2 > d3 and d1 + d3 > d2 and d2 + d3 > d1:
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
