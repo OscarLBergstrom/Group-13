@@ -73,11 +73,15 @@ def lic2(points, numpoints):
 
         a = [v[0]-p1[0], v[1]-p1[1]]
         b = [v[0]-p2[0], v[1]-p2[1]]
-        angle = np.arccos(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))  #inverted dot product formula, angle n radians
-        if angle < PI - parameters["EPSILON"] or angle > PI + parameters["EPSILON"]:
+        if angle(v, p1, p2) < PI - parameters["EPSILON"] or angle(v, p1, p2) > PI + parameters["EPSILON"]:
             return True
     return False
-    
+
+def angle(vertex, p1, p2):
+    a = [vertex[0]-p1[0], vertex[1]-p1[1]]
+    b = [vertex[0]-p2[0], vertex[1]-p2[1]]
+    return np.arccos(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))  #inverted dot product formula, angle in radians
+
 def lic3():
     pass
     
