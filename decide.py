@@ -60,12 +60,13 @@ def lic1():
 
     radius = parameters["LENGTH1"]
 
+    # If we dont even have 3 points
     if numpoints < 3:
         return False
 
     for i in range(len(points) - 2):
         check = circleHelper(points[i], points[i+1], points[1+2], radius)
-        if check:
+        if check:  # If some point cannot be contained inside a circle
             return True
 
     return False
@@ -126,35 +127,38 @@ def lic14():
 
 def circleHelper(a, b, c, radius):
 
+    # Distance from and to each of the points
     d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
     d2 = math.sqrt((c[0] - b[0])**2 + (c[1] - b[1])**2)
     d3 = math.sqrt((c[0] - a[0])**2 + (c[1] - a[1])**2)
 
     diameter = 2 * radius
+
     # Radius of the circumcircle that the three points create from a triangle
     # https://study.com/academy/lesson/circumradius-definition-formula.html
 
+    # Check if the points form a triangle
     if isTriangle(a, b, c):
+        # Radius of the circumcircle that the triangle form
         rCircumCircle = (d1*d2*d3)/(math.sqrt((d1 + d2 + d3) *
                                               (d2 + d3 - d1)*(d3 + d1 - d2)*(d1 + d2 - d3)))
-        if rCircumCircle < radius:
+        if rCircumCircle > radius:  # cannot be contained inside circle
             return True
+
+    if d1 > diameter or d2 > diameter or d3 > diameter:
+        return True
 
     else:
-        if d1 > diameter or d2 > diameter or d3 > diameter:
-            return True
-
-        else:
-            return False
+        return False
 
 
 def isTriangle(a, b, c):
-    # calculate the distance between each pair of points
+    # Calculate the distance between each pair of points
     d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
     d2 = math.sqrt((c[0] - b[0])**2 + (c[1] - b[1])**2)
     d3 = math.sqrt((c[0] - a[0])**2 + (c[1] - a[1])**2)
 
-    # check if the sum of any two sides of the triangle is greater than the third side
+    # Check if the sum of any two sides of the triangle is greater than the third side
     if d1 + d2 > d3 and d1 + d3 > d2 and d2 + d3 > d1:
         return True
     else:
