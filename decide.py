@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import pdb
 
 PI = math.pi
 
@@ -56,16 +57,17 @@ def lic0():
     pass
 
 
-def lic1():
+def lic1(points, numpoints):
 
-    radius = parameters["LENGTH1"]
+    # pdb.set_trace()
+    radius = parameters["RADIUS1"]
 
-    # If we dont even have 3 points
-    if numpoints < 3:
+    # If we dont even have 3 points or the radius is smaller than 0
+    if (numpoints < 3) or (0 > radius):
         return False
 
     for i in range(len(points) - 2):
-        check = circleHelper(points[i], points[i+1], points[1+2], radius)
+        check = circleHelper(points[i], points[i+1], points[i+2], radius)
         if check:  # If some point cannot be contained inside a circle
             return True
 
