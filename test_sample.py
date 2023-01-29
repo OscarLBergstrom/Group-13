@@ -1,4 +1,5 @@
 from decide import *
+import pytest
 
 def lic3_unit_test():
     parameters["AREA1"] = 100
