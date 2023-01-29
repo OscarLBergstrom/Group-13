@@ -34,7 +34,23 @@ def lic10_unit_test_false():
 
     assert value == False
 
-if __name__ == '__main__':
-    lic3_unit_test()
-    lic3_line_test()
+def lic14_unit_test_false():
+    parameters["AREA1"] = 120
+    parameters["AREA2"] = 80
+    parameters["E_PTS"] = 2
+    parameters["F_PTS"] = 3
+    points = [[10,10], [0,0], [10,10], [10,10], [0,0], [0,10], [10,10], [10, 10], [20,10]]
+    value = lic14(points,len(points))
+
+    assert value == False
+
+def lic14_unit_test_true():
+    parameters["AREA1"] = 90
+    parameters["AREA2"] = 110
+    parameters["E_PTS"] = 2
+    parameters["F_PTS"] = 3
+    points = [[10,10], [0,0], [10,10], [10,10], [0,10], [10,10], [10,20], [10, 10], [20,0]]
+    value = lic14(points,len(points))
+
+    assert value == True
     
