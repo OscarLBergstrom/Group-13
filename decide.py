@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import pdb
 
 PI = math.pi
 
@@ -104,25 +105,29 @@ def lic12():
     pass
 
 
-def lic13():
+def lic13(points, numpoints):
 
-    radius1 = parameters["LENGTH1"]
-    radius2 = parameters["LENGTH3"]
+    # pdb.set_trace()
+
+    radius1 = parameters["RADIUS1"]
+    radius2 = parameters["RADIUS2"]
     a_pts = parameters["A_PTS"]
     b_pts = parameters["B_PTS"]
     cond1 = False
     cond2 = False
 
-    if (numpoints < 5) or radius1 <= 0 or radius2 <= 0:
+    if (numpoints < 5) or (radius2 <= 0):
         return False
 
     for i in range(len(points) - (a_pts+b_pts+2)):
+        # check that the points can be inside the circle
         check1 = circleHelper(
-            points[i], points[i+1+a_pts], points[1+2+a_pts+b_pts], radius1)
+            points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius1)
         if check1:
             cond1 = True
+        # check that the points can not be inside the circle
         check2 = circleHelper(
-            points[i], points[i+1+a_pts], points[1+2+a_pts+b_pts], radius2)
+            points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius2)
         if not check2:
             cond2 = True
 
