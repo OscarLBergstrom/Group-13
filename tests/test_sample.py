@@ -25,3 +25,9 @@ def test_min_distance_true():
 def test_min_distance_false():
     length = 1
     assert min_distance(1,1,1,1,length) == False
+
+if __name__ == '__main__':
+    test_lic0_false
+    test_lic0_true
+    test_min_distance_false
+    test_lic0_true
