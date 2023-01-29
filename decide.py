@@ -38,60 +38,40 @@ parameters = {
 def decide():
     pass
 
-def cmv():
-    pass
 
-def pum(cmv_response):
-    pass
+def lic4(points, numpoints):
 
-def fuv(pum_response):
-    pass
+    q = parameters["Q_PTS"]
+    quadrants = np.zeros(4)
+    count = 0
 
+    for i in range(0, numpoints-q+1):
+        for j in range(i, i+q):
+            if points[j][0] >= 0 <= points[j][1]:  # 1st quadrant
+                if not quadrants[0]:
+                    quadrants[0] = 1
+                    count += 1
 
-def lic0():
-    pass
+            elif points[j][0] >= 0 > points[j][1]:  # 4th quadrant
+                if not quadrants[3]:
+                    quadrants[3] = 1
+                    count += 1
 
-def lic1():
-    pass
+            elif points[j][0] < 0 <= points[j][1]:  # 2nd quadrant
+                if not quadrants[1]:
+                    quadrants[1] = 1
+                    count += 1
 
-def lic2():
-    pass
-    
-def lic3():
-    pass
-    
-def lic4():
-    pass
+            else:                                   # 3rd quadrant
+                if not quadrants[2]:
+                    quadrants[2] = 1
+                    count += 1
+        if count > parameters["QUADS"]:
+            return True
+        count = 0
+        quadrants[...] = 0
+    return False
 
-def lic5():
-    pass
-    
-def lic6():
-    pass
-    
-def lic7():
-    pass
-
-def lic8():
-    pass
-    
-def lic9():
-    pass
-
-def lic10():
-    pass
-
-def lic11():
-    pass
-    
-def lic12():
-    pass
-
-def lic13():
-    pass
-
-def lic14():
-    pass
 
 
 if __name__ == '__main__':
