@@ -1,9 +1,10 @@
 import math
 import numpy as np
+import pdb
 
 PI = math.pi
 
-NUMPOINTS = {}
+NUMPOINTS = []
 
 # Input variables
 
@@ -32,7 +33,6 @@ parameters = {
     "LENGTH2": 0,  # Maximum lenght in LIC 12
     "RADIUS": 0,  # Maximum lenght in LIC 13
     "AREA2": 0,  # Maximum area in LIC 14
-
 }
 
 def decide():
@@ -48,8 +48,11 @@ def fuv(pum_response):
     pass
 
 
-def lic0():
-    pass
+def lic0(NUMPOINTS, numpoints, length):
+    for i in range(0,numpoints-2):
+        if (min_distance(NUMPOINTS[i][0],NUMPOINTS[i][1],NUMPOINTS[i+1][0],NUMPOINTS[i+1][1], length)):
+            return True
+    return False
 
 def lic1():
     pass
@@ -96,3 +99,12 @@ def lic14():
 
 if __name__ == '__main__':
     print(decide())
+
+# Secondary functions
+
+def min_distance(x1,y1,x2,y2,length):
+    p = [x1,y1]
+    q = [x2,y2]
+    if length < math.dist(p,q):
+        return True
+    return False
