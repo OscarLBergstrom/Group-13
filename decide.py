@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import pdb
 
 PI = math.pi
 
@@ -35,14 +36,18 @@ parameters = {
 
 }
 
+
 def decide():
     pass
+
 
 def cmv():
     pass
 
+
 def pum(cmv_response):
     pass
+
 
 def fuv(pum_response):
     pass
@@ -51,47 +56,118 @@ def fuv(pum_response):
 def lic0():
     pass
 
+
 def lic1():
     pass
 
+
 def lic2():
     pass
-    
+
+
 def lic3():
     pass
-    
+
+
 def lic4():
     pass
 
+
 def lic5():
     pass
-    
+
+
 def lic6():
     pass
-    
+
+
 def lic7():
     pass
 
-def lic8():
-    pass
-    
+
+def lic8(points, numpoints):
+
+    # pdb.set_trace()
+    radius = parameters["RADIUS1"]
+    # number of intervening points between two points
+    a_pts = parameters["A_PTS"]
+    # number of intervening points between two points
+    b_pts = parameters["B_PTS"]
+
+    if (numpoints < 5) or (radius < 0) or (a_pts < 1) or (b_pts < 1) or ((a_pts+b_pts) > (numpoints-3)):
+        return False
+
+    for i in range(len(points) - (a_pts+b_pts+2)):
+        check = circleHelper(
+            points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius)
+        if check:
+            return True
+
+    return False
+
+
 def lic9():
     pass
+
 
 def lic10():
     pass
 
+
 def lic11():
     pass
-    
+
+
 def lic12():
     pass
+
 
 def lic13():
     pass
 
+
 def lic14():
     pass
+
+
+def circleHelper(a, b, c, radius):
+
+    # Distance from and to each of the points
+    d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
+    d2 = math.sqrt((c[0] - b[0])**2 + (c[1] - b[1])**2)
+    d3 = math.sqrt((c[0] - a[0])**2 + (c[1] - a[1])**2)
+
+    diameter = 2 * radius
+
+    # Radius of the circumcircle that the three points create from a triangle
+    # https://study.com/academy/lesson/circumradius-definition-formula.html
+
+    # Check if the points form a triangle
+    if isTriangle(a, b, c):
+        # Radius of the circumcircle that the triangle form
+        rCircumCircle = (d1*d2*d3)/(math.sqrt((d1 + d2 + d3) *
+                                              (d2 + d3 - d1)*(d3 + d1 - d2)*(d1 + d2 - d3)))
+        if rCircumCircle > radius:  # cannot be contained inside circle
+            return True
+
+    if d1 > diameter or d2 > diameter or d3 > diameter:
+        return True
+
+    else:
+        return False
+
+
+def isTriangle(a, b, c):
+    # Calculate the distance between each pair of points
+    d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
+    d2 = math.sqrt((c[0] - b[0])**2 + (c[1] - b[1])**2)
+    d3 = math.sqrt((c[0] - a[0])**2 + (c[1] - a[1])**2)
+
+    # Check if the sum of any two sides of the triangle is greater than the third side
+    if d1 + d2 > d3 and d1 + d3 > d2 and d2 + d3 > d1:
+        return True
+    else:
+        return False
 
 
 if __name__ == '__main__':
