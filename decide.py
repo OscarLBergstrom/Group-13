@@ -1,5 +1,6 @@
 import math
 import numpy as np
+import pdb
 
 PI = math.pi
 
@@ -84,15 +85,16 @@ def lic7():
     pass
 
 
-def lic8():
+def lic8(points, numpoints):
 
-    radius = parameters["LENGTH1"]
+    # pdb.set_trace()
+    radius = parameters["RADIUS1"]
     # number of intervening points between two points
     a_pts = parameters["A_PTS"]
     # number of intervening points between two points
     b_pts = parameters["B_PTS"]
 
-    if (numpoints < 5) or (a_pts < 1) or (b_pts < 1) or ((a_pts+b_pts) > (numpoints-3)):
+    if (numpoints < 5) or (radius < 0) or (a_pts < 1) or (b_pts < 1) or ((a_pts+b_pts) > (numpoints-3)):
         return False
 
     for i in range(len(points) - (a_pts+b_pts+2)):
