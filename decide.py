@@ -59,7 +59,7 @@ def lic0():
 
 def lic1(points, numpoints):
 
-    # pdb.set_trace()
+    pdb.set_trace()
     radius = parameters["RADIUS1"]
 
     # If we dont even have 3 points or the radius is smaller than 0
