@@ -42,7 +42,12 @@ def decide():
 
 
 def cmv():
-    pass
+    response = [lic0(points, numpoints, parameters["LENGTH1"]), lic1(points, numpoints), lic2(points, numpoints), lic3(points, numpoints)
+        , lic4(points, numpoints), lic5(numpoints, points), lic6(points, numpoints, parameters), lic7(points, numpoints, parameters["LENGTH1"], parameters["K_PTS"])
+        , lic8(points, numpoints), lic9(points, numpoints), lic10(points, numpoints), lic11(numpoints, points, parameters),
+        lic12(points, numpoints, parameters["LENGTH1"], parameters["LENGTH2"], parameters["K_PTS"]), lic13(points, numpoints), lic14(points, numpoints)]
+
+    return response
 
 
 def pum(cmv_response):
