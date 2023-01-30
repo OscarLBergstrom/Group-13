@@ -99,17 +99,17 @@ def lic3(points, numpoints):
 
     if numpoints < 3:
         return False
-    
+
     for i in range(numpoints - 2):
         temp_area = herons_formula(points[i], points[i+1], points[i+2])
         if(temp_area > AREA):
             return True
-        
+
     return False
 
 
 def lic4(points, numpoints):
-    
+
     q = parameters["Q_PTS"]
     quadrants = np.zeros(4)
     count = 0
@@ -151,6 +151,30 @@ def lic5(numpoints, points):
 
 def lic6():
     pass
+
+def lic6(points, numpoins, parameters):
+    # Interpretated the line as infinite and not finite between the points.
+    n_points = parameters["N_PTS"]
+    dist = parameters["DIST"]
+    if n_points < 3:
+        return False
+
+    for i in range(numpoins-n_points):
+        start_point = points[i]
+        end_point = points[i + n_points]
+        line_direction = start_point - end_point
+
+        for j in range(n_points):
+            if np.array_equal(start_point,end_point):
+                if dist < math.dist(start_point,points[i+j]):
+                    return True
+
+            else:
+                point_new_coords = points[i+j]-start_point
+                orthogonal_vector = point_new_coords - project(line_direction,point_new_coords)
+                if dist < np.dot(orthogonal_vector,orthogonal_vector)**(1/2):
+                    return True
+    return False
 
 
 def lic7(points, numpoints, length, k_pts):
@@ -338,6 +362,10 @@ def max_distance(point1, point2, length):
     if length > math.dist(point1, point2):
         return True
     return False
+
+def project(line,point):
+    return np.dot(line,point)/np.dot(line,line)*line
+
 
 def angle(vertex, p1, p2):
     a = [vertex[0]-p1[0], vertex[1]-p1[1]]
