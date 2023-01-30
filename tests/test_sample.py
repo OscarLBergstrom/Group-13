@@ -23,6 +23,62 @@ def test_lic0_false():
     assert lic0(points, numpoints, parameters['LENGTH1']) == False
 
 #########
+# LIC6
+#########
+
+#Tests a valid case
+def test_lic6_true1():
+    parameters = {
+        "DIST": 3,
+        "N_PTS": 3
+    }
+    numpoints = 5
+    points = np.array([[0,0],[0,1],[0,0],[3,3],[1,-1]])
+    assert lic6(points,numpoints,parameters)
+
+#Tests that it works even if start and end point's are the same point
+def test_lic6_true2():
+    def test_lic6_true():
+        parameters = {
+            "DIST": 3,
+            "N_PTS": 3
+        }
+        numpoints = 3
+        points = np.array([[0, 0], [3, 3], [0, 0]])
+        assert lic6(points, numpoints, parameters)
+
+#Tests that it fails if N_PTS < 3
+def test_lic6_false1():
+    parameters = {
+        "DIST": 3,
+        "N_PTS": 2
+    }
+    numpoints = 5
+    points = np.array([[0,0],[0,1],[0,0],[3,3],[1,-1]])
+    assert not lic6(points,numpoints,parameters)
+
+#Test that it fails if no points are far enough away
+def test_lic6_false2():
+    parameters = {
+        "DIST": 3,
+        "N_PTS": 3
+    }
+    numpoints = 5
+    points = np.array([[0, 0], [0, 1], [0, 0], [1, 1], [1, -1]])
+    assert not lic6(points, numpoints, parameters)
+
+#Tests that it fails even if start and end point's are the same point
+def test_lic6_true2():
+    def test_lic6_true():
+        parameters = {
+            "DIST": 3,
+            "N_PTS": 3
+        }
+        numpoints = 3
+        points = np.array([[0, 0], [1, 1    ], [0, 0]])
+        assert not lic6(points, numpoints, parameters)
+
+#########
 # LIC7
 #########
 
@@ -156,3 +212,10 @@ def test_max_distance_true():
 def test_max_distance_false():
     length = 1
     assert max_distance([1,1],[1,1],length) == True
+
+#########
+# Helper Function: Project
+#########
+
+def test_project():
+    assert np.array_equal(project(np.array([-1,1,0]),np.array([-2,-1,0])),[-1/2,1/2,0])
