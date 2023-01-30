@@ -4,6 +4,27 @@ import pdb
 from decide import *
 
 
+#########
+# FUV
+#########
+
+def test_fuv_correct():
+    pum = np.ones((15,15))
+    pum[0:4,0:4] = [[0,0,1,0],[0,0,1,1],[1,1,0,1],[0,1,1,0]]
+
+    for i in range(15):     # setting the diagonal to 0
+        for j in range(15):
+            if i == j:
+                pum[i][j] = 0
+    puv = np.ones(15)
+    puv[1] = False
+    puv[3] = False
+    puv[5] = False
+    result_fuv = fuv(pum,puv)
+    excepted_fuv = np.ones(15)
+    excepted_fuv[0] = False
+    assert np.array_equal(result_fuv,excepted_fuv)
+
 def test_lic2():
     parameters["EPSILON"] = 0.1
     points = np.array([[4,6],[6,4],[4,4]])        #45 degrees is < pi - epsilon
