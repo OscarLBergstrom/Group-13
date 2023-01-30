@@ -75,10 +75,12 @@ def lic3():
 def lic4():
     pass
 
-
-def lic5():
-    pass
-
+def lic5(numpoints, points):
+    for j  in range(1,numpoints):
+        i = j-1
+        if points[j][0]-points[i][0] < 0:
+            return True
+    return False
 
 def lic6(points, numpoins, parameters):
     # Interpretated the line as infinite and not finite between the points.
