@@ -1,4 +1,5 @@
 import pytest
+import numpy as np
 from decide import *
 import pdb
 
@@ -21,6 +22,40 @@ def test_lic0_false():
         "LENGTH1": 2
     }
     assert lic0(points, numpoints, parameters['LENGTH1']) == False
+
+#########
+# LIC4
+#########
+
+
+def test_lic4_positive():       # tests if positive when data satisfies the condition
+    parameters["QUADS"] = 2
+    parameters["Q_PTS"] = 3
+
+    points = np.array([[0, 1], [1, 1], [-1, -1], [-1, 1]])
+    numpoints = 4
+
+    assert lic4(points, numpoints)
+
+
+def test_lic4_ambiguous_cond():  # tests if function properly assigns quadrants based on their ordering when a point has "ambiguous coordinates"
+    parameters["QUADS"] = 2
+    parameters["Q_PTS"] = 3
+
+    points = np.array([[0, 0], [1, -1], [0, -1]])
+    numpoints = 3
+
+    assert lic4(points, numpoints)
+
+
+def test_lic4_negative():       # tests if negative when data doesn't satisfy the condition
+    parameters["QUADS"] = 4
+    parameters["Q_PTS"] = 3
+
+    points = np.array([[0, 1], [1, 1], [-1, -1], [-1, 1]])
+    numpoints = 4
+
+    assert not lic4(points, numpoints)
 
 #########
 # LIC5
