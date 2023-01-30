@@ -4,7 +4,7 @@ import pdb
 
 PI = math.pi
 
-NUMPOINTS = {}
+NUMPOINTS = []
 
 # Input variables
 
@@ -33,7 +33,6 @@ parameters = {
     "LENGTH2": 0,  # Maximum lenght in LIC 12
     "RADIUS": 0,  # Maximum lenght in LIC 13
     "AREA2": 0,  # Maximum area in LIC 14
-
 }
 
 
@@ -53,8 +52,11 @@ def fuv(pum_response):
     pass
 
 
-def lic0():
-    pass
+def lic0(NUMPOINTS, numpoints, length):
+    for i in range(0,numpoints-2):
+        if (min_distance(NUMPOINTS[i][0],NUMPOINTS[i][1],NUMPOINTS[i+1][0],NUMPOINTS[i+1][1], length)):
+            return True
+    return False
 
 
 def lic1():
@@ -129,6 +131,10 @@ def lic13():
 def lic14():
     pass
 
+if __name__ == '__main__':
+    print(decide())
+
+############# Helper functions ###############
 
 def circleHelper(a, b, c, radius):
 
@@ -156,7 +162,6 @@ def circleHelper(a, b, c, radius):
     else:
         return False
 
-
 def isTriangle(a, b, c):
     # Calculate the distance between each pair of points
     d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
@@ -169,6 +174,9 @@ def isTriangle(a, b, c):
     else:
         return False
 
-
-if __name__ == '__main__':
-    print(decide())
+def min_distance(x1,y1,x2,y2,length):
+    p = [x1,y1]
+    q = [x2,y2]
+    if length < math.dist(p,q):
+        return True
+    return False
