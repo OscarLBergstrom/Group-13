@@ -23,7 +23,8 @@ parameters = {
     "QUADS": 0,       # Number of concecutive in LIC 4
     "DIST": 0,        # Distance in LIC 6
     "N_PTS": 0,       # Number of concecutive points in LIC 6
-    "A_PTS": 0,       # No. of int. pts. in LICs 7 , 12
+    "K_PTS": 0,       # No. of int. pts. in LICs 7 , 12
+    "A_PTS": 0,       # No. of int. pts. in LICs 8 , 13
     "B_PTS": 0,       # No. of int. pts. in LICs 8 , 13
     "C_PTS": 0,       # No. of int. pts. in LIC 9
     "D_PTS": 0,       # No. of int. pts. in LIC 9
@@ -52,9 +53,9 @@ def fuv(pum_response):
     pass
 
 
-def lic0(NUMPOINTS, numpoints, length):
+def lic0(points, numpoints, length):
     for i in range(0,numpoints-2):
-        if (min_distance(NUMPOINTS[i][0],NUMPOINTS[i][1],NUMPOINTS[i+1][0],NUMPOINTS[i+1][1], length)):
+        if (min_distance(points[i],points[i+1], length)):
             return True
     return False
 
@@ -83,7 +84,7 @@ def lic6():
     pass
 
 
-def lic7():
+def lic7(k_pts, numpoints, NUMPOINTS, length):
     pass
 
 
@@ -100,9 +101,7 @@ def lic8(points, numpoints):
         return False
 
     for i in range(len(points) - (a_pts+b_pts+2)):
-        check = circleHelper(
-            points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius)
-        if check:
+        if circleHelper(points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius):
             return True
 
     return False
@@ -174,9 +173,7 @@ def isTriangle(a, b, c):
     else:
         return False
 
-def min_distance(x1,y1,x2,y2,length):
-    p = [x1,y1]
-    q = [x2,y2]
-    if length < math.dist(p,q):
+def min_distance(point1,point2,length):
+    if length < math.dist(point1,point2):
         return True
     return False
