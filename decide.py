@@ -84,7 +84,7 @@ def lic4(points, numpoints):
                     quadrants[0] = 1
                     count += 1
 
-            elif points[j][0] >= 0 > points[j][1]:  # 4th quadrant
+            elif points[j][0] > 0 > points[j][1]:  # 4th quadrant
                 if not quadrants[3]:
                     quadrants[3] = 1
                     count += 1
