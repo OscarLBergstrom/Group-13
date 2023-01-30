@@ -39,6 +39,8 @@ def decide():
     pass
 
 
+
+
 def cmv():
     pass
 
@@ -51,6 +53,8 @@ def fuv(pum_response):
     pass
 
 
+
+
 def lic0(points, numpoints, length):
     if length < 0:
         False
@@ -60,8 +64,22 @@ def lic0(points, numpoints, length):
     return False
 
 
-def lic1():
-    pass
+
+def lic1(points, numpoints):
+
+    radius = parameters["RADIUS1"]
+
+    # If we dont even have 3 points or the radius is smaller than 0
+    if (numpoints < 3) or (0 > radius):
+        return False
+
+    for i in range(len(points) - 2):
+        check = circleHelper(points[i], points[i+1], points[i+2], radius)
+        if check:  # If some point cannot be contained inside a circle
+            return True
+
+    return False
+
 
 
 def lic2(points, numpoints):
@@ -76,13 +94,52 @@ def lic2(points, numpoints):
             return True
     return False
 
+def lic3(points, numpoints):
+    AREA = parameters["AREA1"]
 
-def lic3():
-    pass
+    if numpoints < 3:
+        return False
+    
+    for i in range(numpoints - 2):
+        temp_area = herons_formula(points[i], points[i+1], points[i+2])
+        if(temp_area > AREA):
+            return True
+        
+    return False
 
 
-def lic4():
-    pass
+def lic4(points, numpoints):
+    
+    q = parameters["Q_PTS"]
+    quadrants = np.zeros(4)
+    count = 0
+    for i in range(0, numpoints-q+1):
+        for j in range(i, i+q):
+            if points[j][0] >= 0 <= points[j][1]:  # 1st quadrant
+                if not quadrants[0]:
+                    quadrants[0] = 1
+                    count += 1
+
+            elif points[j][0] > 0 > points[j][1]:  # 4th quadrant
+                if not quadrants[3]:
+                    quadrants[3] = 1
+                    count += 1
+
+            elif points[j][0] < 0 <= points[j][1]:  # 2nd quadrant
+                if not quadrants[1]:
+                    quadrants[1] = 1
+                    count += 1
+
+            else:                                   # 3rd quadrant
+                if not quadrants[2]:
+                    quadrants[2] = 1
+                    count += 1
+        if count > parameters["QUADS"]:
+            return True
+        count = 0
+        quadrants[...] = 0
+    return False
+
 
 def lic5(numpoints, points):
     for j  in range(1,numpoints):
@@ -167,6 +224,7 @@ def lic12(points, numpoints, length1, length2, k_pts):
     return False
 
 
+
 def lic13():
     pass
 
@@ -174,10 +232,29 @@ def lic13():
 def lic14():
     pass
 
+
 if __name__ == '__main__':
     print(decide())
 
 ############# Helper functions ###############
+
+# Calculates the area of a triangle with the datapoints a,b,c. Used in Lic 3.
+def herons_formula(a,b,c):
+    len_1 = calculate_length(a,b)
+    len_2 = calculate_length(a,c)
+    len_3 = calculate_length(b,c)
+
+    s = (len_1 + len_2 + len_3)/2
+
+    area = math.sqrt(s*(s-len_1)*(s-len_2)*(s-len_3))
+
+    return area
+
+# Calculates the length between two datapoints a,b. Used in herons_formula (lic3).
+def calculate_length(a,b):
+    len = math.sqrt(pow(a[0]-b[0], 2) + pow(a[1]-b[1], 2))
+    return len
+
 
 def circleHelper(a, b, c, radius):
 
@@ -230,4 +307,4 @@ def max_distance(point1,point2,length):
 def angle(vertex, p1, p2):
     a = [vertex[0]-p1[0], vertex[1]-p1[1]]
     b = [vertex[0]-p2[0], vertex[1]-p2[1]]
-    return np.arccos(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))  #inverted dot product formula, angle in radians
+    return np.arccos(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))  # inverted dot product formula, angle in radians
