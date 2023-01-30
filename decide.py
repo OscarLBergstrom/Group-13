@@ -37,12 +37,20 @@ parameters = {
 
 def decide():
     pass
+    fuv_response = fuv(pum(cmv()))
 
-
+    for boolean in fuv_response:
+        if not boolean:
+            return 'NO'
+    return 'YES'
 
 
 def cmv():
     pass
+    response = [lic0(), lic1(), lic2(), lic3(), lic4(), lic5(), lic6(
+    ), lic7(), lic8(), lic9(), lic10(), lic11(), lic12(), lic13(), lic14()]
+
+    return response
 
 
 def pum(cmv_response):
@@ -53,8 +61,6 @@ def fuv(pum_response):
     pass
 
 
-
-
 def lic0(points, numpoints, length):
     if length < 0:
         False
@@ -62,7 +68,6 @@ def lic0(points, numpoints, length):
         if (min_distance(points[i], points[i+1], length)):
             return True
     return False
-
 
 
 def lic1(points, numpoints):
@@ -80,13 +85,12 @@ def lic1(points, numpoints):
     return False
 
 
-
 def lic2(points, numpoints):
-    for i in range (1,numpoints-1):
+    for i in range(1, numpoints-1):
         v = points[i]
         p1 = points[i-1]
         p2 = points[i+1]
-        if(np.array_equal(v,p2) or np.array_equal(v,p1)):
+        if (np.array_equal(v, p2) or np.array_equal(v, p1)):
             continue
 
         if angle(v, p1, p2) < PI - parameters["EPSILON"] or angle(v, p1, p2) > PI + parameters["EPSILON"]:
@@ -102,7 +106,7 @@ def lic3(points, numpoints):
 
     for i in range(numpoints - 2):
         temp_area = herons_formula(points[i], points[i+1], points[i+2])
-        if(temp_area > AREA):
+        if (temp_area > AREA):
             return True
 
     return False
@@ -152,6 +156,7 @@ def lic5(numpoints, points):
 def lic6():
     pass
 
+
 def lic6(points, numpoins, parameters):
     # Interpretated the line as infinite and not finite between the points.
     n_points = parameters["N_PTS"]
@@ -165,14 +170,15 @@ def lic6(points, numpoins, parameters):
         line_direction = start_point - end_point
 
         for j in range(n_points):
-            if np.array_equal(start_point,end_point):
-                if dist < math.dist(start_point,points[i+j]):
+            if np.array_equal(start_point, end_point):
+                if dist < math.dist(start_point, points[i+j]):
                     return True
 
             else:
                 point_new_coords = points[i+j]-start_point
-                orthogonal_vector = point_new_coords - project(line_direction,point_new_coords)
-                if dist < np.dot(orthogonal_vector,orthogonal_vector)**(1/2):
+                orthogonal_vector = point_new_coords - \
+                    project(line_direction, point_new_coords)
+                if dist < np.dot(orthogonal_vector, orthogonal_vector)**(1/2):
                     return True
     return False
 
@@ -184,7 +190,8 @@ def lic7(points, numpoints, length, k_pts):
         if (min_distance(points[i], points[i+k_pts], length)):
             return True
     return False
-    
+
+
 def lic9(points, numpoints):
     if numpoints < 5:
         return False
@@ -225,24 +232,23 @@ def lic8(points, numpoints):
     return False
 
 
-
 def lic10(points, numpoints):
     AREA = parameters["AREA1"]
     E_PTS = parameters["E_PTS"]
     F_PTS = parameters["F_PTS"]
-    
-    if(numpoints < 5):
-        return False
-    if(F_PTS + E_PTS > numpoints - 3):
-        return False
-    
-    for i in range(numpoints - (F_PTS+E_PTS+2)):
-        temp_area = herons_formula(points[i], points[i + E_PTS + 1], points[i + E_PTS + F_PTS + 2])
-        if(temp_area > AREA):
-            return True
-        
-    return False
 
+    if (numpoints < 5):
+        return False
+    if (F_PTS + E_PTS > numpoints - 3):
+        return False
+
+    for i in range(numpoints - (F_PTS+E_PTS+2)):
+        temp_area = herons_formula(
+            points[i], points[i + E_PTS + 1], points[i + E_PTS + F_PTS + 2])
+        if (temp_area > AREA):
+            return True
+
+    return False
 
 
 def lic11(numpoints, points, parameters):
@@ -255,6 +261,7 @@ def lic11(numpoints, points, parameters):
         if points[j][0]-points[i][0] < 0:
             return True
     return False
+
 
 def lic12(points, numpoints, length1, length2, k_pts):
     if numpoints < 3 or length2 < 0 or length1 < 0:
@@ -308,20 +315,21 @@ def lic14(points, numpoints):
 
     if numpoints < 5:
         return False
-    
+
     triangle_larger = False
     triangle_smaller = False
 
     for i in range(numpoints - (E_PTS+F_PTS+2)):
-        temp_area = herons_formula(points[i], points[i + E_PTS + 1], points[i+ F_PTS + E_PTS + 2])
-        
+        temp_area = herons_formula(
+            points[i], points[i + E_PTS + 1], points[i + F_PTS + E_PTS + 2])
+
         if temp_area > AREA1:
             triangle_larger = True
         if temp_area < AREA2:
             triangle_smaller = True
         if triangle_smaller and triangle_larger:
             return True
-    
+
     return False
 
 
@@ -331,10 +339,12 @@ if __name__ == '__main__':
 ############# Helper functions ###############
 
 # Calculates the area of a triangle with the datapoints a,b,c. Used in Lic 3.
-def herons_formula(a,b,c):
-    len_1 = calculate_length(a,b)
-    len_2 = calculate_length(a,c)
-    len_3 = calculate_length(b,c)
+
+
+def herons_formula(a, b, c):
+    len_1 = calculate_length(a, b)
+    len_2 = calculate_length(a, c)
+    len_3 = calculate_length(b, c)
 
     s = (len_1 + len_2 + len_3)/2
 
@@ -343,7 +353,9 @@ def herons_formula(a,b,c):
     return area
 
 # Calculates the length between two datapoints a,b. Used in herons_formula (lic3).
-def calculate_length(a,b):
+
+
+def calculate_length(a, b):
     len = math.sqrt(pow(a[0]-b[0], 2) + pow(a[1]-b[1], 2))
     return len
 
@@ -399,11 +411,13 @@ def max_distance(point1, point2, length):
         return True
     return False
 
-def project(line,point):
-    return np.dot(line,point)/np.dot(line,line)*line
+
+def project(line, point):
+    return np.dot(line, point)/np.dot(line, line)*line
 
 
 def angle(vertex, p1, p2):
     a = [vertex[0]-p1[0], vertex[1]-p1[1]]
     b = [vertex[0]-p2[0], vertex[1]-p2[1]]
-    return np.arccos(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))  # inverted dot product formula, angle in radians
+    # inverted dot product formula, angle in radians
+    return np.arccos(np.dot(a, b)/(np.linalg.norm(a)*np.linalg.norm(b)))
