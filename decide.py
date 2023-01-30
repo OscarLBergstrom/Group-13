@@ -206,9 +206,16 @@ def lic10():
     pass
 
 
-def lic11():
-    pass
+def lic11(numpoints, points, parameters):
+    g_pts = parameters["G_PTS"]
+    if numpoints < 3:
+        return False
 
+    for i in range(numpoints-(g_pts+1)):
+        j = i + g_pts + 1
+        if points[j][0]-points[i][0] < 0:
+            return True
+    return False
 
 def lic12(points, numpoints, length1, length2, k_pts):
     if numpoints < 3 or length2 < 0 or length1 < 0:
