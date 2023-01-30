@@ -212,7 +212,7 @@ def lic10(points, numpoints):
     if(F_PTS + E_PTS > numpoints - 3):
         return False
     
-    for i in range(numpoints - (F_PTS+E_PTS)):
+    for i in range(numpoints - (F_PTS+E_PTS+2)):
         temp_area = herons_formula(points[i], points[i + E_PTS + 1], points[i + E_PTS + F_PTS + 2])
         if(temp_area > AREA):
             return True

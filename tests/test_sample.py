@@ -257,7 +257,7 @@ def test_lic8Invalid3():
 # LIC10
 #########
 
-def lic10_unit_test_true():
+def test_lic10_unit_true():
     parameters["AREA1"] = 90
     parameters["E_PTS"] = 2
     parameters["F_PTS"] = 3
@@ -266,7 +266,7 @@ def lic10_unit_test_true():
 
     assert value == True
 
-def lic10_unit_test_false():
+def test_lic10_unit_false():
     parameters["AREA1"] = 90
     parameters["E_PTS"] = 2
     parameters["F_PTS"] = 3
