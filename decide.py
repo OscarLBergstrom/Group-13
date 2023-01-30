@@ -79,8 +79,20 @@ def lic1(points, numpoints):
             return True
     return False
 
-def lic2():
-    pass
+
+
+def lic2(points, numpoints):
+    for i in range (1,numpoints-1):
+        v = points[i]
+        p1 = points[i-1]
+        p2 = points[i+1]
+        if(np.array_equal(v,p2) or np.array_equal(v,p1)):
+            continue
+
+        if angle(v, p1, p2) < PI - parameters["EPSILON"] or angle(v, p1, p2) > PI + parameters["EPSILON"]:
+            return True
+    return False
+
 
 def lic3(points, numpoints):
     AREA = parameters["AREA1"]
@@ -148,6 +160,26 @@ def lic7(points, numpoints, length, k_pts):
         if (min_distance(points[i], points[i+k_pts], length)):
             return True
     return False
+    
+def lic9(points, numpoints):
+    if numpoints < 5:
+        return False
+
+    c = parameters["C_PTS"]
+    d = parameters["D_PTS"]
+
+    for i in range(0, numpoints):
+        if i + d + c + 2 >= numpoints:
+            break
+        v = points[i+c+1]
+        p1 = points[i]
+        p2 = points[i+c+d+2]
+        if np.array_equal(v, p2) or np.array_equal(v, p1):
+            continue
+        if angle(v, p1, p2) < (PI-parameters["EPSILON"]) or angle(v, p1, p2) > (PI + parameters["EPSILON"]):
+            return True
+
+    return False
 
 
 def lic8(points, numpoints):
@@ -168,9 +200,6 @@ def lic8(points, numpoints):
 
     return False
 
-
-def lic9():
-    pass
 
 
 def lic10():
@@ -302,3 +331,8 @@ def max_distance(point1, point2, length):
     if length > math.dist(point1, point2):
         return True
     return False
+
+def angle(vertex, p1, p2):
+    a = [vertex[0]-p1[0], vertex[1]-p1[1]]
+    b = [vertex[0]-p2[0], vertex[1]-p2[1]]
+    return np.arccos(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))  # inverted dot product formula, angle in radians
