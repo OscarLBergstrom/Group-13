@@ -64,6 +64,24 @@ def lic0(points, numpoints, length):
     return False
 
 
+
+def lic1(points, numpoints):
+
+    radius = parameters["RADIUS1"]
+
+    # If we dont even have 3 points or the radius is smaller than 0
+    if (numpoints < 3) or (0 > radius):
+        return False
+
+    for i in range(len(points) - 2):
+        check = circleHelper(points[i], points[i+1], points[i+2], radius)
+        if check:  # If some point cannot be contained inside a circle
+            return True
+
+    return False
+
+
+
 def lic2():
     pass
 
@@ -179,6 +197,7 @@ def lic12(points, numpoints, length1, length2, k_pts):
         if cond2 and cond1:
             return True
     return False
+
 
 
 def lic13():
