@@ -8,10 +8,10 @@ from decide import *
 #########
 
 def test_decide_true():
-    pass
+    assert decide(points, numpoints, parameters, lcm, puv) == 'YES'
 
 def test_decide_false():
-    pass
+    assert decide(points, numpoints, parameters, lcm, puv) == 'NO'
 
 #########
 # LIC2
