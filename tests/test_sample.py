@@ -310,6 +310,29 @@ def test_lic8Invalid3():
     assert lic8(points, numpoints) == False
 
 #########
+# LIC10
+#########
+
+def test_lic10_unit_true():
+    parameters["AREA1"] = 90
+    parameters["E_PTS"] = 2
+    parameters["F_PTS"] = 3
+    points = [[10,10], [0,0], [10,10], [10,10], [0,10], [10,10], [10,20], [10, 10], [20,0]]
+    value = lic10(points,len(points))
+
+    assert value == True
+
+def test_lic10_unit_false():
+    parameters["AREA1"] = 90
+    parameters["E_PTS"] = 2
+    parameters["F_PTS"] = 3
+    points = [[10,10], [0,0], [10,10], [10,10], [0,0], [0,10], [10,10], [10, 10], [20,10]]
+    value = lic10(points,len(points))
+
+    assert value == False
+
+
+#########
 # LIC11
 #########
 
@@ -324,6 +347,7 @@ def test_lic11_false():
     parameters = {"G_PTS": 2}
     points = np.array([[0, 0], [1, 2], [2, 3], [3, 3], [3, 4]])
     assert not lic11(nrpoints, points, parameters)
+
 
 
 #########
