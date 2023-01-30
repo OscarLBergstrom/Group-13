@@ -45,9 +45,24 @@ def cmv():
     pass
 
 
-def pum(cmv_response):
-    pass
-
+def pum(cmv_response, lcm):
+    pum = np.zeros((15,15))
+    for i in range(15):
+        for j in range(15):
+            if i==j:
+                continue
+            condition = lcm[i][j]
+            result = 0
+            if condition == 0:
+                result = 1
+            if condition == 1:
+                result = cmv_response[i] and cmv_response[j]
+            if condition == 2:
+                result = cmv_response[i] or cmv_response[j]
+            pum[i][j] = result
+            pum[j][i] = result
+        
+    return pum
 
 def fuv(pum_response):
     pass
