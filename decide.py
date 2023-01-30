@@ -58,8 +58,8 @@ def fuv(pum_response):
 def lic0(points, numpoints, length):
     if length < 0:
         False
-    for i in range(0,numpoints-1):
-        if (min_distance(points[i],points[i+1], length)):
+    for i in range(0, numpoints-1):
+        if (min_distance(points[i], points[i+1], length)):
             return True
     return False
 
@@ -77,7 +77,6 @@ def lic1(points, numpoints):
         check = circleHelper(points[i], points[i+1], points[i+2], radius)
         if check:  # If some point cannot be contained inside a circle
             return True
-
     return False
 
 
@@ -93,6 +92,7 @@ def lic2(points, numpoints):
         if angle(v, p1, p2) < PI - parameters["EPSILON"] or angle(v, p1, p2) > PI + parameters["EPSILON"]:
             return True
     return False
+
 
 def lic3(points, numpoints):
     AREA = parameters["AREA1"]
@@ -142,20 +142,22 @@ def lic4(points, numpoints):
 
 
 def lic5(numpoints, points):
-    for j  in range(1,numpoints):
+    for j in range(1, numpoints):
         i = j-1
         if points[j][0]-points[i][0] < 0:
             return True
     return False
-    
+
+
 def lic6():
     pass
+
 
 def lic7(points, numpoints, length, k_pts):
     if numpoints < 3 or length < 0:
         return False
-    for i in range(0,numpoints-k_pts):
-        if (min_distance(points[i],points[i+k_pts], length)):
+    for i in range(0, numpoints-k_pts):
+        if (min_distance(points[i], points[i+k_pts], length)):
             return True
     return False
     
@@ -178,6 +180,7 @@ def lic9(points, numpoints):
             return True
 
     return False
+
 
 def lic8(points, numpoints):
 
@@ -214,19 +217,41 @@ def lic12(points, numpoints, length1, length2, k_pts):
     cond1 = False
     cond2 = False
 
-    for i in range(0,numpoints-k_pts):
-        if not cond1 and (min_distance(points[i],points[i+k_pts], length1)):
+    for i in range(0, numpoints-k_pts):
+        if not cond1 and (min_distance(points[i], points[i+k_pts], length1)):
             cond1 = True
-        if not cond2 and (max_distance(points[i],points[i+k_pts], length2)):
+        if not cond2 and (max_distance(points[i], points[i+k_pts], length2)):
             cond2 = True
         if cond2 and cond1:
             return True
     return False
 
 
+def lic13(points, numpoints):
+    radius1 = parameters["RADIUS1"]
+    radius2 = parameters["RADIUS2"]
+    a_pts = parameters["A_PTS"]
+    b_pts = parameters["B_PTS"]
+    cond1 = False
+    cond2 = False
 
-def lic13():
-    pass
+    if (numpoints < 5) or radius1 <= 0 or radius2 <= 0:
+        return False
+
+    for i in range(len(points) - (a_pts+b_pts+2)):
+        check1 = circleHelper(
+            points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius1)
+        if check1:
+            cond1 = True
+        check2 = circleHelper(
+            points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius2)
+        if not check2:
+            cond2 = True
+
+    # Both conditions needs to be True
+    cond3 = cond1 and cond2
+
+    return cond3
 
 
 def lic14():
@@ -282,6 +307,7 @@ def circleHelper(a, b, c, radius):
     else:
         return False
 
+
 def isTriangle(a, b, c):
     # Calculate the distance between each pair of points
     d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
@@ -294,13 +320,15 @@ def isTriangle(a, b, c):
     else:
         return False
 
-def min_distance(point1,point2,length):
-    if length < math.dist(point1,point2):
+
+def min_distance(point1, point2, length):
+    if length < math.dist(point1, point2):
         return True
     return False
 
-def max_distance(point1,point2,length):
-    if length > math.dist(point1,point2):
+
+def max_distance(point1, point2, length):
+    if length > math.dist(point1, point2):
         return True
     return False
 
