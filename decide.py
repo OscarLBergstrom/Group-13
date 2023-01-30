@@ -67,13 +67,22 @@ def lic0(points, numpoints, length):
 def lic2():
     pass
 
+def lic3(points, numpoints):
+    AREA = parameters["AREA1"]
 
-def lic3():
-    pass
+    if numpoints < 3:
+        return False
+    
+    for i in range(numpoints - 2):
+        temp_area = herons_formula(points[i], points[i+1], points[i+2])
+        if(temp_area > AREA):
+            return True
+        
+    return False
 
 
 def lic4(points, numpoints):
-
+    
     q = parameters["Q_PTS"]
     quadrants = np.zeros(4)
     count = 0
@@ -179,10 +188,29 @@ def lic13():
 def lic14():
     pass
 
+
 if __name__ == '__main__':
     print(decide())
 
 ############# Helper functions ###############
+
+# Calculates the area of a triangle with the datapoints a,b,c. Used in Lic 3.
+def herons_formula(a,b,c):
+    len_1 = calculate_length(a,b)
+    len_2 = calculate_length(a,c)
+    len_3 = calculate_length(b,c)
+
+    s = (len_1 + len_2 + len_3)/2
+
+    area = math.sqrt(s*(s-len_1)*(s-len_2)*(s-len_3))
+
+    return area
+
+# Calculates the length between two datapoints a,b. Used in herons_formula (lic3).
+def calculate_length(a,b):
+    len = math.sqrt(pow(a[0]-b[0], 2) + pow(a[1]-b[1], 2))
+    return len
+
 
 def circleHelper(a, b, c, radius):
 
