@@ -2,6 +2,10 @@ import pytest
 from decide import *
 import pdb
 
+#########
+# LIC0
+#########
+
 def test_lic0_true():
     points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
     numpoints = 7
@@ -18,14 +22,31 @@ def test_lic0_false():
     }
     assert lic0(points, numpoints, parameters['LENGTH1']) == False
 
-def test_min_distance_true():
-    length = 2
-    assert min_distance([1,1],[3,3],length) == True
+#########
+# LIC7
+#########
 
-def test_min_distance_false():
-    length = 1
-    assert min_distance([1,1],[1,1],length) == False
+def test_lic7_true():
+    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    numpoints = 7
+    parameters = {
+        "LENGTH1": 1
+    }
+    k_pts = 2
+    assert lic7(points, numpoints, parameters['LENGTH1'], k_pts) == True
 
+def test_lic7_false():
+    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    numpoints = 7
+    parameters = {
+        "LENGTH1": 5
+    }
+    k_pts = 2
+    assert lic7(points, numpoints, parameters['LENGTH1'], k_pts) == False
+
+#########
+# LIC8
+#########
 
 # Can not be contained = true
 # can be contained = false
@@ -78,13 +99,14 @@ def test_lic8Invalid3():
                       2.5, 3.5], [3, 3], [3.5, 2.5], [5, 4]])
     assert lic8(points, numpoints) == False
 
+#########
+# Helper Function: Min Distance
+#########
 
-# if __name__ == '__main__':
-#     test_lic8Valid1()
-#     test_lic8Valid2()
-#     test_lic8Invalid1()
-#     test_lic8Invalid2()
-#     test_lic0_false()
-#     test_lic0_true()
-#     test_min_distance_false()
-#     test_lic0_true()
+def test_min_distance_true():
+    length = 2
+    assert min_distance([1,1],[3,3],length) == True
+
+def test_min_distance_false():
+    length = 1
+    assert min_distance([1,1],[1,1],length) == False

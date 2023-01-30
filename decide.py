@@ -4,8 +4,6 @@ import pdb
 
 PI = math.pi
 
-NUMPOINTS = []
-
 # Input variables
 
 numpoints = 0
@@ -54,7 +52,7 @@ def fuv(pum_response):
 
 
 def lic0(points, numpoints, length):
-    for i in range(0,numpoints-2):
+    for i in range(0,numpoints-1):
         if (min_distance(points[i],points[i+1], length)):
             return True
     return False
@@ -83,10 +81,14 @@ def lic5():
 def lic6():
     pass
 
-
-def lic7(k_pts, numpoints, NUMPOINTS, length):
-    pass
-
+def lic7(points, numpoints, length, k_pts):
+    if numpoints < 3:
+        return False
+    for i in range(0,numpoints-k_pts):
+        if (min_distance(points[i],points[i+k_pts], length)):
+            return True
+    return False
+    
 
 def lic8(points, numpoints):
 
