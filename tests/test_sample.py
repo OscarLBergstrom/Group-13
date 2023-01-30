@@ -23,6 +23,20 @@ def test_lic0_false():
     assert lic0(points, numpoints, parameters['LENGTH1']) == False
 
 #########
+# LIC5
+#########
+
+def test_lic5_true():
+    nrpoints = 5
+    points = np.array([[0, 0], [1, 2], [2, 3], [4, 3], [3, 4]])
+    assert lic5(nrpoints, points)
+
+def test_lic5_false():
+    nrpoints = 5
+    points = np.array([[0, 0], [1, 2], [2, 3], [3, 3], [3, 4]])
+    assert not lic5(nrpoints, points)
+
+#########
 # LIC7
 #########
 
@@ -71,30 +85,6 @@ def test_lic8Valid2():
                       2.5, 3.5], [3, 3], [3.5, 2.5], [5, 4]])
     assert lic8(points, numpoints) == False
 
-
-def test_answer():
-    assert func(3) == 4
-
-def test_lic5():
-    nrpoints=2
-    points = np.array([[1,0],[0,2]])
-    assert lic5(nrpoints, points)
-
-    nrpoints=2
-    points = np.array([[0,0],[0,2]])
-    assert not lic5(nrpoints, points)
-
-    nrpoints=2
-    points = np.array([[0,0],[1,2]])
-    assert not lic5(nrpoints, points)
-
-    nrpoints=5
-    points = np.array([[0, 0], [1, 2],[2,3],[3,3],[3,4]])
-    assert not lic5(nrpoints, points)
-
-    nrpoints = 5
-    points = np.array([[0, 0], [1, 2], [2, 3], [4, 3], [3, 4]])
-    assert lic5(nrpoints, points)
 #Checking (a_pts+b_pts) > (numpoints-3)
 def test_lic8Invalid1():
     parameters["A_PTS"] = 5
@@ -102,6 +92,7 @@ def test_lic8Invalid1():
     numpoints = 10
     points = np.array([[1, 2], [2, 3], [3, 4]])
     assert lic8(points, numpoints) == False
+
 
 #Checking (numpoints < 5)
 def test_lic8Invalid2():
