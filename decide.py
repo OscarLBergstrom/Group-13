@@ -39,6 +39,8 @@ def decide():
     pass
 
 
+
+
 def cmv():
     pass
 
@@ -51,36 +53,104 @@ def fuv(pum_response):
     pass
 
 
+
+
 def lic0(points, numpoints, length):
     if length < 0:
         False
-    for i in range(0,numpoints-1):
-        if (min_distance(points[i],points[i+1], length)):
+    for i in range(0, numpoints-1):
+        if (min_distance(points[i], points[i+1], length)):
             return True
     return False
 
 
-def lic1():
-    pass
+
+def lic1(points, numpoints):
+
+    radius = parameters["RADIUS1"]
+
+    # If we dont even have 3 points or the radius is smaller than 0
+    if (numpoints < 3) or (0 > radius):
+        return False
+
+    for i in range(len(points) - 2):
+        check = circleHelper(points[i], points[i+1], points[i+2], radius)
+        if check:  # If some point cannot be contained inside a circle
+            return True
+    return False
 
 
-def lic2():
-    pass
+
+def lic2(points, numpoints):
+    for i in range (1,numpoints-1):
+        v = points[i]
+        p1 = points[i-1]
+        p2 = points[i+1]
+        if(np.array_equal(v,p2) or np.array_equal(v,p1)):
+            continue
+
+        if angle(v, p1, p2) < PI - parameters["EPSILON"] or angle(v, p1, p2) > PI + parameters["EPSILON"]:
+            return True
+    return False
 
 
-def lic3():
-    pass
+def lic3(points, numpoints):
+    AREA = parameters["AREA1"]
+
+    if numpoints < 3:
+        return False
+
+    for i in range(numpoints - 2):
+        temp_area = herons_formula(points[i], points[i+1], points[i+2])
+        if(temp_area > AREA):
+            return True
+
+    return False
 
 
-def lic4():
-    pass
+def lic4(points, numpoints):
+
+    q = parameters["Q_PTS"]
+    quadrants = np.zeros(4)
+    count = 0
+    for i in range(0, numpoints-q+1):
+        for j in range(i, i+q):
+            if points[j][0] >= 0 <= points[j][1]:  # 1st quadrant
+                if not quadrants[0]:
+                    quadrants[0] = 1
+                    count += 1
+
+            elif points[j][0] > 0 > points[j][1]:  # 4th quadrant
+                if not quadrants[3]:
+                    quadrants[3] = 1
+                    count += 1
+
+            elif points[j][0] < 0 <= points[j][1]:  # 2nd quadrant
+                if not quadrants[1]:
+                    quadrants[1] = 1
+                    count += 1
+
+            else:                                   # 3rd quadrant
+                if not quadrants[2]:
+                    quadrants[2] = 1
+                    count += 1
+        if count > parameters["QUADS"]:
+            return True
+        count = 0
+        quadrants[...] = 0
+    return False
+
 
 def lic5(numpoints, points):
-    for j  in range(1,numpoints):
+    for j in range(1, numpoints):
         i = j-1
         if points[j][0]-points[i][0] < 0:
             return True
     return False
+
+
+def lic6():
+    pass
 
 def lic6(points, numpoins, parameters):
     # Interpretated the line as infinite and not finite between the points.
@@ -106,14 +176,35 @@ def lic6(points, numpoins, parameters):
                     return True
     return False
 
+
 def lic7(points, numpoints, length, k_pts):
     if numpoints < 3 or length < 0:
         return False
-    for i in range(0,numpoints-k_pts):
-        if (min_distance(points[i],points[i+k_pts], length)):
+    for i in range(0, numpoints-k_pts):
+        if (min_distance(points[i], points[i+k_pts], length)):
             return True
     return False
     
+def lic9(points, numpoints):
+    if numpoints < 5:
+        return False
+
+    c = parameters["C_PTS"]
+    d = parameters["D_PTS"]
+
+    for i in range(0, numpoints):
+        if i + d + c + 2 >= numpoints:
+            break
+        v = points[i+c+1]
+        p1 = points[i]
+        p2 = points[i+c+d+2]
+        if np.array_equal(v, p2) or np.array_equal(v, p1):
+            continue
+        if angle(v, p1, p2) < (PI-parameters["EPSILON"]) or angle(v, p1, p2) > (PI + parameters["EPSILON"]):
+            return True
+
+    return False
+
 
 def lic8(points, numpoints):
 
@@ -134,17 +225,21 @@ def lic8(points, numpoints):
     return False
 
 
-def lic9():
-    pass
-
 
 def lic10():
     pass
 
 
-def lic11():
-    pass
+def lic11(numpoints, points, parameters):
+    g_pts = parameters["G_PTS"]
+    if numpoints < 3:
+        return False
 
+    for i in range(numpoints-(g_pts+1)):
+        j = i + g_pts + 1
+        if points[j][0]-points[i][0] < 0:
+            return True
+    return False
 
 def lic12(points, numpoints, length1, length2, k_pts):
     if numpoints < 3 or length2 < 0 or length1 < 0:
@@ -153,27 +248,69 @@ def lic12(points, numpoints, length1, length2, k_pts):
     cond1 = False
     cond2 = False
 
-    for i in range(0,numpoints-k_pts):
-        if not cond1 and (min_distance(points[i],points[i+k_pts], length1)):
+    for i in range(0, numpoints-k_pts):
+        if not cond1 and (min_distance(points[i], points[i+k_pts], length1)):
             cond1 = True
-        if not cond2 and (max_distance(points[i],points[i+k_pts], length2)):
+        if not cond2 and (max_distance(points[i], points[i+k_pts], length2)):
             cond2 = True
         if cond2 and cond1:
             return True
     return False
 
 
-def lic13():
-    pass
+def lic13(points, numpoints):
+    radius1 = parameters["RADIUS1"]
+    radius2 = parameters["RADIUS2"]
+    a_pts = parameters["A_PTS"]
+    b_pts = parameters["B_PTS"]
+    cond1 = False
+    cond2 = False
+
+    if (numpoints < 5) or radius1 <= 0 or radius2 <= 0:
+        return False
+
+    for i in range(len(points) - (a_pts+b_pts+2)):
+        check1 = circleHelper(
+            points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius1)
+        if check1:
+            cond1 = True
+        check2 = circleHelper(
+            points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius2)
+        if not check2:
+            cond2 = True
+
+    # Both conditions needs to be True
+    cond3 = cond1 and cond2
+
+    return cond3
 
 
 def lic14():
     pass
 
+
 if __name__ == '__main__':
     print(decide())
 
 ############# Helper functions ###############
+
+# Calculates the area of a triangle with the datapoints a,b,c. Used in Lic 3.
+def herons_formula(a,b,c):
+    len_1 = calculate_length(a,b)
+    len_2 = calculate_length(a,c)
+    len_3 = calculate_length(b,c)
+
+    s = (len_1 + len_2 + len_3)/2
+
+    area = math.sqrt(s*(s-len_1)*(s-len_2)*(s-len_3))
+
+    return area
+
+# Calculates the length between two datapoints a,b. Used in herons_formula (lic3).
+def calculate_length(a,b):
+    len = math.sqrt(pow(a[0]-b[0], 2) + pow(a[1]-b[1], 2))
+    return len
+
 
 def circleHelper(a, b, c, radius):
 
@@ -201,6 +338,7 @@ def circleHelper(a, b, c, radius):
     else:
         return False
 
+
 def isTriangle(a, b, c):
     # Calculate the distance between each pair of points
     d1 = math.sqrt((b[0] - a[0])**2 + (b[1] - a[1])**2)
@@ -213,15 +351,23 @@ def isTriangle(a, b, c):
     else:
         return False
 
-def min_distance(point1,point2,length):
-    if length < math.dist(point1,point2):
+
+def min_distance(point1, point2, length):
+    if length < math.dist(point1, point2):
         return True
     return False
 
-def max_distance(point1,point2,length):
-    if length > math.dist(point1,point2):
+
+def max_distance(point1, point2, length):
+    if length > math.dist(point1, point2):
         return True
     return False
 
 def project(line,point):
     return np.dot(line,point)/np.dot(line,line)*line
+
+
+def angle(vertex, p1, p2):
+    a = [vertex[0]-p1[0], vertex[1]-p1[1]]
+    b = [vertex[0]-p2[0], vertex[1]-p2[1]]
+    return np.arccos(np.dot(a,b)/(np.linalg.norm(a)*np.linalg.norm(b)))  # inverted dot product formula, angle in radians
