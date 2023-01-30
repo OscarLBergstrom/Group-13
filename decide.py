@@ -35,9 +35,8 @@ parameters = {
 }
 
 
-def decide():
-    pass
-    fuv_response = fuv(pum(cmv()))
+def decide(points,numpoints,parameters,lcm,puv):
+    fuv_response = fuv(pum(cmv(points,numpoints,parameters),lcm),puv)
 
     for boolean in fuv_response:
         if not boolean:
@@ -335,7 +334,7 @@ def lic14(points, numpoints):
 
 
 if __name__ == '__main__':
-    print(decide())
+    print(decide(points,numpoints,parameters,lcm,puv))
 
 ############# Helper functions ###############
 

@@ -3,6 +3,19 @@ import numpy as np
 import pdb
 from decide import *
 
+#########
+# Decide Function
+#########
+
+def test_decide_true():
+    pass
+
+def test_decide_false():
+    pass
+
+#########
+# LIC2
+#########
 
 def test_lic2():
     parameters["EPSILON"] = 0.1
@@ -21,6 +34,9 @@ def test_lic2():
     points = np.array([[2,2],[2,2],[3,1]])        #one point coincides with vertex
     assert not lic2(points, numpoints)
 
+#########
+# LIC9
+#########
 
 def test_lic9_positive_1():        # test if it returns True when data satisfies the condition
     parameters["EPSILON"] = 0.1
