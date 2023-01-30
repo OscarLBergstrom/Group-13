@@ -100,6 +100,40 @@ def test_lic8Invalid3():
     assert lic8(points, numpoints) == False
 
 #########
+# LIC12
+#########
+
+def test_lic12_true():
+    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    numpoints = 7
+    parameters = {
+        "LENGTH1": 1,
+        "LENGTH2": 3
+    }
+    k_pts = 2
+    assert lic12(points, numpoints, parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == True
+
+def test_lic12_false1():
+    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    numpoints = 7
+    parameters = {
+        "LENGTH1": 1,
+        "LENGTH2": 1
+    }
+    k_pts = 2
+    assert lic12(points, numpoints, parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == False
+
+def test_lic12_false2():
+    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    numpoints = 7
+    parameters = {
+        "LENGTH1": 5,
+        "LENGTH2": 3
+    }
+    k_pts = 2
+    assert lic12(points, numpoints, parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == False
+
+#########
 # Helper Function: Min Distance
 #########
 
@@ -110,3 +144,15 @@ def test_min_distance_true():
 def test_min_distance_false():
     length = 1
     assert min_distance([1,1],[1,1],length) == False
+
+#########
+# Helper Function: Max Distance
+#########
+
+def test_max_distance_true():
+    length = 2
+    assert max_distance([1,1],[3,3],length) == False
+
+def test_max_distance_false():
+    length = 1
+    assert max_distance([1,1],[1,1],length) == True

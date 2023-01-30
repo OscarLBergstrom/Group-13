@@ -52,6 +52,8 @@ def fuv(pum_response):
 
 
 def lic0(points, numpoints, length):
+    if length < 0:
+        False
     for i in range(0,numpoints-1):
         if (min_distance(points[i],points[i+1], length)):
             return True
@@ -82,7 +84,7 @@ def lic6():
     pass
 
 def lic7(points, numpoints, length, k_pts):
-    if numpoints < 3:
+    if numpoints < 3 or length < 0:
         return False
     for i in range(0,numpoints-k_pts):
         if (min_distance(points[i],points[i+k_pts], length)):
@@ -121,8 +123,21 @@ def lic11():
     pass
 
 
-def lic12():
-    pass
+def lic12(points, numpoints, length1, length2, k_pts):
+    if numpoints < 3 or length2 < 0 or length1 < 0:
+        return False
+
+    cond1 = False
+    cond2 = False
+
+    for i in range(0,numpoints-k_pts):
+        if not cond1 and (min_distance(points[i],points[i+k_pts], length1)):
+            cond1 = True
+        if not cond2 and (max_distance(points[i],points[i+k_pts], length2)):
+            cond2 = True
+        if cond2 and cond1:
+            return True
+    return False
 
 
 def lic13():
@@ -177,5 +192,10 @@ def isTriangle(a, b, c):
 
 def min_distance(point1,point2,length):
     if length < math.dist(point1,point2):
+        return True
+    return False
+
+def max_distance(point1,point2,length):
+    if length > math.dist(point1,point2):
         return True
     return False
