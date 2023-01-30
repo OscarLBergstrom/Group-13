@@ -75,7 +75,6 @@ def lic3(points, numpoints):
     
     for i in range(numpoints - 2):
         temp_area = herons_formula(points[i], points[i+1], points[i+2])
-        print(temp_area)
         if(temp_area > AREA):
             return True
         
