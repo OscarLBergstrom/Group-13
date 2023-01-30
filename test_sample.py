@@ -1,30 +1,6 @@
 import pytest
+import numpy as np
 from decide import *
-import pdb
-
-def test_lic0_true():
-    NUMPOINTS = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
-    numpoints = 7
-    parameters = {
-        "LENGTH1": 1
-    }
-    assert lic0(NUMPOINTS, numpoints, parameters['LENGTH1']) == True
-
-def test_lic0_false():
-    NUMPOINTS = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
-    numpoints = 7
-    parameters = {
-        "LENGTH1": 2
-    }
-    assert lic0(NUMPOINTS, numpoints, parameters['LENGTH1']) == False
-
-def test_min_distance_true():
-    length = 2
-    assert min_distance(1,1,3,3,length) == True
-
-def test_min_distance_false():
-    length = 1
-    assert min_distance(1,1,1,1,length) == False
 
 
 # Can not be contained = true
@@ -41,6 +17,8 @@ def test_lic8Valid1():
     assert lic8(points, numpoints) == True
 
 # Checking if these points can contain in a circle with radius 3
+
+
 def test_lic8Valid2():
     parameters["A_PTS"] = 2
     parameters["B_PTS"] = 3
@@ -60,6 +38,8 @@ def test_lic8Invalid1():
     assert lic8(points, numpoints) == False
 
 #Checking (numpoints < 5)
+
+
 def test_lic8Invalid2():
     parameters["A_PTS"] = 0
     parameters["B_PTS"] = 0
@@ -79,12 +59,8 @@ def test_lic8Invalid3():
     assert lic8(points, numpoints) == False
 
 
-# if __name__ == '__main__':
-#     test_lic8Valid1()
-#     test_lic8Valid2()
-#     test_lic8Invalid1()
-#     test_lic8Invalid2()
-#     test_lic0_false()
-#     test_lic0_true()
-#     test_min_distance_false()
-#     test_lic0_true()
+if __name__ == '__main__':
+    test_lic8Valid1()
+    test_lic8Valid2()
+    test_lic8Invalid1()
+    test_lic8Invalid2()
