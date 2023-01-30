@@ -300,8 +300,29 @@ def lic13(points, numpoints):
     return cond3
 
 
-def lic14():
-    pass
+def lic14(points, numpoints):
+    AREA1 = parameters["AREA1"]
+    AREA2 = parameters["AREA2"]
+    E_PTS = parameters["E_PTS"]
+    F_PTS = parameters["F_PTS"]
+
+    if numpoints < 5:
+        return False
+    
+    triangle_larger = False
+    triangle_smaller = False
+
+    for i in range(numpoints - (E_PTS+F_PTS+2)):
+        temp_area = herons_formula(points[i], points[i + E_PTS + 1], points[i+ F_PTS + E_PTS + 2])
+        
+        if temp_area > AREA1:
+            triangle_larger = True
+        if temp_area < AREA2:
+            triangle_smaller = True
+        if triangle_smaller and triangle_larger:
+            return True
+    
+    return False
 
 
 if __name__ == '__main__':

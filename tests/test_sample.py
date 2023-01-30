@@ -330,7 +330,7 @@ def test_lic10_unit_false():
     value = lic10(points,len(points))
 
     assert value == False
-
+    
 
 #########
 # LIC11
@@ -431,6 +431,30 @@ def test_lic13Invalid2():
     numpoints = 4
     points = np.array([[1, 2], [2, 3], [3, 4]])
     assert lic13(points, numpoints) == False
+
+#########
+# LIC14
+#########
+
+def test_lic14_unit_false():
+    parameters["AREA1"] = 120
+    parameters["AREA2"] = 80
+    parameters["E_PTS"] = 2
+    parameters["F_PTS"] = 3
+    points = [[10,10], [0,0], [10,10], [10,10], [0,0], [0,10], [10,10], [10, 10], [20,10]]
+    value = lic14(points,len(points))
+
+    assert value == False
+
+def test_lic14_unit_true():
+    parameters["AREA1"] = 90
+    parameters["AREA2"] = 110
+    parameters["E_PTS"] = 2
+    parameters["F_PTS"] = 3
+    points = [[10,10], [0,0], [10,10], [10,10], [0,10], [10,10], [10,20], [10, 10], [20,0]]
+    value = lic14(points,len(points))
+
+    assert value == True
 
 #########
 # Helper Function: Min Distance
