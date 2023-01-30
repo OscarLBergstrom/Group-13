@@ -7,8 +7,26 @@ from decide import *
 # Decide Function
 #########
 
+
 def test_decide_true():
+
+    numpoints = 9
+    points = np.zeros((numpoints, 2))
+
+    points[0] = [1, 1]
+    points[1] = [2, 2]
+    points[2] = [3, 3]
+    points[3] = [4, 4]
+    points[4] = [5, 5]
+    points[5] = [6, 6]
+    points[6] = [7, 7]
+
+    points[7] = [1, 2]
+    points[8] = [2, 3]
+    points[9] = [3, 4]
+
     assert decide(points, numpoints, parameters, lcm, puv) == 'YES'
+
 
 def test_decide_false():
     assert decide(points, numpoints, parameters, lcm, puv) == 'NO'
@@ -17,32 +35,37 @@ def test_decide_false():
 # LIC2
 #########
 
+
 def test_lic2():
     parameters["EPSILON"] = 0.1
-    points = np.array([[4,6],[6,4],[4,4]])        #45 degrees is < pi - epsilon
+    points = np.array([[4, 6], [6, 4], [4, 4]])  # 45 degrees is < pi - epsilon
     numpoints = 3
     assert lic2(points, numpoints)
 
-    parameters["EPSILON"] = math.pi/2              #>90 degrees is > pi - epsilon
-    points = np.array([[2,2],[4,2],[5,4]])
+    parameters["EPSILON"] = math.pi/2  # >90 degrees is > pi - epsilon
+    points = np.array([[2, 2], [4, 2], [5, 4]])
     numpoints = 3
     assert not lic2(points, numpoints)
 
-    points = np.array([[4,1],[2,2],[2,2]])        #one point coincides with vertex
+    # one point coincides with vertex
+    points = np.array([[4, 1], [2, 2], [2, 2]])
     assert not lic2(points, numpoints)
 
-    points = np.array([[2,2],[2,2],[3,1]])        #one point coincides with vertex
+    # one point coincides with vertex
+    points = np.array([[2, 2], [2, 2], [3, 1]])
     assert not lic2(points, numpoints)
 
 #########
 # LIC9
 #########
 
+
 def test_lic9_positive_1():        # test if it returns True when data satisfies the condition
     parameters["EPSILON"] = 0.1
     parameters["C_PTS"] = 2
     parameters["D_PTS"] = 3
-    points = np.array([[4, 6], [0, 0], [0, 0], [6, 4], [0, 0], [0, 0], [0, 0], [4, 4]])
+    points = np.array([[4, 6], [0, 0], [0, 0], [6, 4],
+                      [0, 0], [0, 0], [0, 0], [4, 4]])
     numpoints = 8
 
     assert lic9(points, numpoints)
@@ -65,7 +88,8 @@ def test_lic9_positive_3():  # test where the set is somewhere in the middle of 
     parameters["C_PTS"] = 1
     parameters["D_PTS"] = 1
 
-    points = np.array([[0, 0], [0, 0], [2, 2], [0, 0], [4, 2],  [0, 0], [5, 4],  [1, 0]])
+    points = np.array([[0, 0], [0, 0], [2, 2], [0, 0], [
+                      4, 2],  [0, 0], [5, 4],  [1, 0]])
     numpoints = 8
 
     assert lic2(points, numpoints)
@@ -76,7 +100,8 @@ def test_lic9_negative_1():     # test when the angle is less than pi + epsilon 
     parameters["C_PTS"] = 1
     parameters["D_PTS"] = 1
 
-    points = np.array([[2, 2], [0, 0], [4, 2], [0, 0], [5, 4]])             # pi/2 < ~116 degrees < pi + pi/2
+    # pi/2 < ~116 degrees < pi + pi/2
+    points = np.array([[2, 2], [0, 0], [4, 2], [0, 0], [5, 4]])
     numpoints = 5
 
     assert not lic9(points, numpoints)
@@ -85,16 +110,18 @@ def test_lic9_negative_1():     # test when the angle is less than pi + epsilon 
 # LIC0
 #########
 
+
 def test_lic0_true():
-    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    points = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
     numpoints = 7
     parameters = {
         "LENGTH1": 1
     }
     assert lic0(points, numpoints, parameters['LENGTH1']) == True
 
+
 def test_lic0_false():
-    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    points = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
     numpoints = 7
     parameters = {
         "LENGTH1": 2
@@ -107,6 +134,7 @@ def test_lic0_false():
 
 # Can not be contained = true
 # can be contained = false
+
 
 def test_lic1NotContained():
     numpoints = 3
@@ -125,24 +153,29 @@ def test_lic1Contained():
 # LIC3
 #########
 
+
 def test_lic3_false():
     parameters["AREA1"] = 100
-    points = [[1,1], [0,0], [0,10],[20,0],[1,0],[2,3]] # Should result in a triangle equal but not greater to 100
-    value = lic3(points,len(points))
+    # Should result in a triangle equal but not greater to 100
+    points = [[1, 1], [0, 0], [0, 10], [20, 0], [1, 0], [2, 3]]
+    value = lic3(points, len(points))
 
     assert value == False
 
+
 def test_lic3_true():
     parameters["AREA1"] = 90
-    points = [[1,1], [0,0], [0,10],[20,0],[1,0],[2,3]] # Should result in a triangle equal but not greater to 100
-    value = lic3(points,len(points))
+    # Should result in a triangle equal but not greater to 100
+    points = [[1, 1], [0, 0], [0, 10], [20, 0], [1, 0], [2, 3]]
+    value = lic3(points, len(points))
 
     assert value == True
 
+
 def test_lic3_line():
     parameters["AREA1"] = 1
-    points = [[1,1],[2,2],[3,3]]
-    value = lic3(points,len(points))
+    points = [[1, 1], [2, 2], [3, 3]]
+    value = lic3(points, len(points))
 
     assert value == False
 
@@ -184,10 +217,12 @@ def test_lic4_negative():       # tests if negative when data doesn't satisfy th
 # LIC5
 #########
 
+
 def test_lic5_true():
     nrpoints = 5
     points = np.array([[0, 0], [1, 2], [2, 3], [4, 3], [3, 4]])
     assert lic5(nrpoints, points)
+
 
 def test_lic5_false():
     nrpoints = 5
@@ -198,17 +233,21 @@ def test_lic5_false():
 # LIC6
 #########
 
-#Tests a valid case
+# Tests a valid case
+
+
 def test_lic6_true1():
     parameters = {
         "DIST": 3,
         "N_PTS": 3
     }
     numpoints = 5
-    points = np.array([[0,0],[0,1],[0,0],[3,3],[1,-1]])
-    assert lic6(points,numpoints,parameters)
+    points = np.array([[0, 0], [0, 1], [0, 0], [3, 3], [1, -1]])
+    assert lic6(points, numpoints, parameters)
 
-#Tests that it works even if start and end point's are the same point
+# Tests that it works even if start and end point's are the same point
+
+
 def test_lic6_true2():
     def test_lic6_true():
         parameters = {
@@ -219,17 +258,21 @@ def test_lic6_true2():
         points = np.array([[0, 0], [3, 3], [0, 0]])
         assert lic6(points, numpoints, parameters)
 
-#Tests that it fails if N_PTS < 3
+# Tests that it fails if N_PTS < 3
+
+
 def test_lic6_false1():
     parameters = {
         "DIST": 3,
         "N_PTS": 2
     }
     numpoints = 5
-    points = np.array([[0,0],[0,1],[0,0],[3,3],[1,-1]])
-    assert not lic6(points,numpoints,parameters)
+    points = np.array([[0, 0], [0, 1], [0, 0], [3, 3], [1, -1]])
+    assert not lic6(points, numpoints, parameters)
 
-#Test that it fails if no points are far enough away
+# Test that it fails if no points are far enough away
+
+
 def test_lic6_false2():
     parameters = {
         "DIST": 3,
@@ -239,7 +282,9 @@ def test_lic6_false2():
     points = np.array([[0, 0], [0, 1], [0, 0], [1, 1], [1, -1]])
     assert not lic6(points, numpoints, parameters)
 
-#Tests that it fails even if start and end point's are the same point
+# Tests that it fails even if start and end point's are the same point
+
+
 def test_lic6_true2():
     def test_lic6_true():
         parameters = {
@@ -247,15 +292,16 @@ def test_lic6_true2():
             "N_PTS": 3
         }
         numpoints = 3
-        points = np.array([[0, 0], [1, 1    ], [0, 0]])
+        points = np.array([[0, 0], [1, 1], [0, 0]])
         assert not lic6(points, numpoints, parameters)
 
 #########
 # LIC7
 #########
 
+
 def test_lic7_true():
-    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    points = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
     numpoints = 7
     parameters = {
         "LENGTH1": 1
@@ -263,8 +309,9 @@ def test_lic7_true():
     k_pts = 2
     assert lic7(points, numpoints, parameters['LENGTH1'], k_pts) == True
 
+
 def test_lic7_false():
-    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    points = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
     numpoints = 7
     parameters = {
         "LENGTH1": 5
@@ -280,6 +327,8 @@ def test_lic7_false():
 # can be contained = false
 
 # Checking if these points cannot contain in a circle with radius 3
+
+
 def test_lic8Valid1():
     parameters["A_PTS"] = 2
     parameters["B_PTS"] = 3
@@ -290,6 +339,8 @@ def test_lic8Valid1():
     assert lic8(points, numpoints) == True
 
 # Checking if these points can contain in a circle with radius 3
+
+
 def test_lic8Valid2():
     parameters["A_PTS"] = 2
     parameters["B_PTS"] = 3
@@ -300,6 +351,8 @@ def test_lic8Valid2():
     assert lic8(points, numpoints) == False
 
 #Checking (a_pts+b_pts) > (numpoints-3)
+
+
 def test_lic8Invalid1():
     parameters["A_PTS"] = 5
     parameters["B_PTS"] = 7
@@ -308,6 +361,8 @@ def test_lic8Invalid1():
     assert lic8(points, numpoints) == False
 
 #Checking (numpoints < 5)
+
+
 def test_lic8Invalid2():
     parameters["A_PTS"] = 0
     parameters["B_PTS"] = 0
@@ -316,6 +371,8 @@ def test_lic8Invalid2():
     assert lic8(points, numpoints) == False
 
 # Checking that it fails when A_PTS < 1
+
+
 def test_lic8Invalid3():
     parameters["A_PTS"] = 0
     parameters["B_PTS"] = 3
@@ -329,24 +386,28 @@ def test_lic8Invalid3():
 # LIC10
 #########
 
+
 def test_lic10_unit_true():
     parameters["AREA1"] = 90
     parameters["E_PTS"] = 2
     parameters["F_PTS"] = 3
-    points = [[10,10], [0,0], [10,10], [10,10], [0,10], [10,10], [10,20], [10, 10], [20,0]]
-    value = lic10(points,len(points))
+    points = [[10, 10], [0, 0], [10, 10], [10, 10], [
+        0, 10], [10, 10], [10, 20], [10, 10], [20, 0]]
+    value = lic10(points, len(points))
 
     assert value == True
+
 
 def test_lic10_unit_false():
     parameters["AREA1"] = 90
     parameters["E_PTS"] = 2
     parameters["F_PTS"] = 3
-    points = [[10,10], [0,0], [10,10], [10,10], [0,0], [0,10], [10,10], [10, 10], [20,10]]
-    value = lic10(points,len(points))
+    points = [[10, 10], [0, 0], [10, 10], [10, 10], [
+        0, 0], [0, 10], [10, 10], [10, 10], [20, 10]]
+    value = lic10(points, len(points))
 
     assert value == False
-    
+
 
 #########
 # LIC11
@@ -354,9 +415,10 @@ def test_lic10_unit_false():
 
 def test_lic11_true():
     nrpoints = 5
-    points = np.array([[0, 0], [4, 3], [1, 2], [2, 3], [3, 4],])
+    points = np.array([[0, 0], [4, 3], [1, 2], [2, 3], [3, 4], ])
     parameters = {"G_PTS": 2}
     assert lic11(nrpoints, points, parameters)
+
 
 def test_lic11_false():
     nrpoints = 5
@@ -365,46 +427,52 @@ def test_lic11_false():
     assert not lic11(nrpoints, points, parameters)
 
 
-
 #########
 # LIC12
 #########
 
 def test_lic12_true():
-    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    points = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
     numpoints = 7
     parameters = {
         "LENGTH1": 1,
         "LENGTH2": 3
     }
     k_pts = 2
-    assert lic12(points, numpoints, parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == True
+    assert lic12(points, numpoints,
+                 parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == True
+
 
 def test_lic12_false1():
-    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    points = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
     numpoints = 7
     parameters = {
         "LENGTH1": 1,
         "LENGTH2": 1
     }
     k_pts = 2
-    assert lic12(points, numpoints, parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == False
+    assert lic12(points, numpoints,
+                 parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == False
+
 
 def test_lic12_false2():
-    points = [[1,1],[2,2],[3,3],[4,4],[5,5],[6,6],[7,7]]
+    points = [[1, 1], [2, 2], [3, 3], [4, 4], [5, 5], [6, 6], [7, 7]]
     numpoints = 7
     parameters = {
         "LENGTH1": 5,
         "LENGTH2": 3
     }
     k_pts = 2
-    assert lic12(points, numpoints, parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == False
+    assert lic12(points, numpoints,
+                 parameters['LENGTH1'], parameters['LENGTH2'], k_pts) == False
 
 #########
 # LIC13
 #########
 
 # Checking that the two conditions are being met and therefore true
+
+
 def test_lic13Valid1():
     parameters["A_PTS"] = 2
     parameters["B_PTS"] = 3
@@ -452,23 +520,27 @@ def test_lic13Invalid2():
 # LIC14
 #########
 
+
 def test_lic14_unit_false():
     parameters["AREA1"] = 120
     parameters["AREA2"] = 80
     parameters["E_PTS"] = 2
     parameters["F_PTS"] = 3
-    points = [[10,10], [0,0], [10,10], [10,10], [0,0], [0,10], [10,10], [10, 10], [20,10]]
-    value = lic14(points,len(points))
+    points = [[10, 10], [0, 0], [10, 10], [10, 10], [
+        0, 0], [0, 10], [10, 10], [10, 10], [20, 10]]
+    value = lic14(points, len(points))
 
     assert value == False
+
 
 def test_lic14_unit_true():
     parameters["AREA1"] = 90
     parameters["AREA2"] = 110
     parameters["E_PTS"] = 2
     parameters["F_PTS"] = 3
-    points = [[10,10], [0,0], [10,10], [10,10], [0,10], [10,10], [10,20], [10, 10], [20,0]]
-    value = lic14(points,len(points))
+    points = [[10, 10], [0, 0], [10, 10], [10, 10], [
+        0, 10], [10, 10], [10, 20], [10, 10], [20, 0]]
+    value = lic14(points, len(points))
 
     assert value == True
 
@@ -476,29 +548,34 @@ def test_lic14_unit_true():
 # Helper Function: Min Distance
 #########
 
+
 def test_min_distance_true():
     length = 2
-    assert min_distance([1,1],[3,3],length) == True
+    assert min_distance([1, 1], [3, 3], length) == True
+
 
 def test_min_distance_false():
     length = 1
-    assert min_distance([1,1],[1,1],length) == False
+    assert min_distance([1, 1], [1, 1], length) == False
 
 #########
 # Helper Function: Max Distance
 #########
 
+
 def test_max_distance_true():
     length = 2
-    assert max_distance([1,1],[3,3],length) == False
+    assert max_distance([1, 1], [3, 3], length) == False
+
 
 def test_max_distance_false():
     length = 1
-    assert max_distance([1,1],[1,1],length) == True
+    assert max_distance([1, 1], [1, 1], length) == True
 
 #########
 # Helper Function: Is Triangle
 #########
+
 
 def test_isTriangle():
 
@@ -521,4 +598,5 @@ def test_isNotTriangle():
 #########
 
 def test_project():
-    assert np.array_equal(project(np.array([-1,1,0]),np.array([-2,-1,0])),[-1/2,1/2,0])
+    assert np.array_equal(
+        project(np.array([-1, 1, 0]), np.array([-2, -1, 0])), [-1/2, 1/2, 0])
