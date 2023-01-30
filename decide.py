@@ -45,10 +45,10 @@ def decide(points,numpoints,parameters,lcm,puv):
 
 
 def cmv(points, numpoints, parameters):
-    response = [lic0(points, numpoints, parameters["LENGTH1"]), lic1(points, numpoints), lic2(points, numpoints), lic3(points, numpoints)
-        , lic4(points, numpoints), lic5(numpoints, points), lic6(points, numpoints, parameters), lic7(points, numpoints, parameters["LENGTH1"], parameters["K_PTS"])
-        , lic8(points, numpoints), lic9(points, numpoints), lic10(points, numpoints), lic11(numpoints, points, parameters),
-        lic12(points, numpoints, parameters["LENGTH1"], parameters["LENGTH2"], parameters["K_PTS"]), lic13(points, numpoints), lic14(points, numpoints)]
+    response = [lic0(points, numpoints, parameters["LENGTH1"]), lic1(points, numpoints, parameters), lic2(points, numpoints, parameters), lic3(points, numpoints, parameters)
+        , lic4(points, numpoints, parameters), lic5(numpoints, points), lic6(points, numpoints, parameters), lic7(points, numpoints, parameters["LENGTH1"], parameters["K_PTS"])
+        , lic8(points, numpoints, parameters), lic9(points, numpoints, parameters), lic10(points, numpoints, parameters), lic11(numpoints, points, parameters),
+        lic12(points, numpoints, parameters["LENGTH1"], parameters["LENGTH2"], parameters["K_PTS"]), lic13(points, numpoints, parameters), lic14(points, numpoints, parameters)]
 
     return response
 
@@ -70,7 +70,7 @@ def lic0(points, numpoints, length):
     return False
 
 
-def lic1(points, numpoints):
+def lic1(points, numpoints, parameters):
 
     radius = parameters["RADIUS1"]
 
@@ -85,7 +85,7 @@ def lic1(points, numpoints):
     return False
 
 
-def lic2(points, numpoints):
+def lic2(points, numpoints, parameters):
     for i in range(1, numpoints-1):
         v = points[i]
         p1 = points[i-1]
@@ -98,7 +98,7 @@ def lic2(points, numpoints):
     return False
 
 
-def lic3(points, numpoints):
+def lic3(points, numpoints, parameters):
     AREA = parameters["AREA1"]
 
     if numpoints < 3:
@@ -112,7 +112,7 @@ def lic3(points, numpoints):
     return False
 
 
-def lic4(points, numpoints):
+def lic4(points, numpoints, parameters):
 
     q = parameters["Q_PTS"]
     quadrants = np.zeros(4)
@@ -152,11 +152,6 @@ def lic5(numpoints, points):
             return True
     return False
 
-
-def lic6():
-    pass
-
-
 def lic6(points, numpoins, parameters):
     # Interpretated the line as infinite and not finite between the points.
     n_points = parameters["N_PTS"]
@@ -192,7 +187,7 @@ def lic7(points, numpoints, length, k_pts):
     return False
 
 
-def lic9(points, numpoints):
+def lic9(points, numpoints, parameters):
     if numpoints < 5:
         return False
 
@@ -213,7 +208,7 @@ def lic9(points, numpoints):
     return False
 
 
-def lic8(points, numpoints):
+def lic8(points, numpoints, parameters):
 
     # pdb.set_trace()
     radius = parameters["RADIUS1"]
@@ -232,7 +227,7 @@ def lic8(points, numpoints):
     return False
 
 
-def lic10(points, numpoints):
+def lic10(points, numpoints, parameters):
     AREA = parameters["AREA1"]
     E_PTS = parameters["E_PTS"]
     F_PTS = parameters["F_PTS"]
@@ -280,7 +275,7 @@ def lic12(points, numpoints, length1, length2, k_pts):
     return False
 
 
-def lic13(points, numpoints):
+def lic13(points, numpoints, parameters):
     radius1 = parameters["RADIUS1"]
     radius2 = parameters["RADIUS2"]
     a_pts = parameters["A_PTS"]
@@ -307,7 +302,7 @@ def lic13(points, numpoints):
     return cond3
 
 
-def lic14(points, numpoints):
+def lic14(points, numpoints, parameters):
     AREA1 = parameters["AREA1"]
     AREA2 = parameters["AREA2"]
     E_PTS = parameters["E_PTS"]
