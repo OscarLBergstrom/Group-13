@@ -31,7 +31,7 @@ PUM depends on a matrix called CMW given by 15 logical functions called LIC.
 
 The control flow is visualised on in the image below. 
 
-![](https://imgur.com/VTqxt3S "title")
+![](https://i.imgur.com/VTqxt3S.png)
 
 # Statement of contribution
 
