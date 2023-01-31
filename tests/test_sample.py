@@ -201,6 +201,13 @@ def test_lic2():
     assert not lic2(points, numpoints, parameters)
 
 
+def test_lic2_invalid_data():
+
+    parameters["EPSILON"] = math.pi + 0.1       # epsilon > pi
+    points = np.array([[4, 6], [6, 4], [4, 4]])
+    numpoints = 3
+    assert not lic2(points, numpoints, parameters)
+
 #########
 # LIC3
 #########
@@ -266,6 +273,15 @@ def test_lic4_negative():  # tests if negative when data doesn't satisfy the con
 
     assert not lic4(points, numpoints, parameters)
 
+
+def test_lic4_invalid_data():
+    parameters["QUADS"] = 4
+    parameters["Q_PTS"] = 5     # Q_PTS > numpoints
+
+    points = np.array([[0, 1], [1, 1], [-1, -1], [-1, 1]])
+    numpoints = 4
+
+    assert not lic2(points, numpoints, parameters)
 
 #########
 # LIC5
@@ -498,6 +514,26 @@ def test_lic9_negative_1():  # test when the angle is less than pi + epsilon and
 
     assert not lic9(points, numpoints, parameters)
 
+
+def test_lic9_invalid_data1():   # test when C_PTS + D_PTS > numpoints - 3
+    parameters["EPSILON"] = math.pi / 2
+    parameters["C_PTS"] = 2
+    parameters["D_PTS"] = 2
+
+    points = np.array([[2, 2], [0, 0], [4, 2], [0, 0], [5, 4]])
+    numpoints = 5
+
+    assert not lic9(points, numpoints, parameters)
+
+def test_lic9_invalid_data2():   # test when numpoints < 5
+    parameters["EPSILON"] = math.pi / 2
+    parameters["C_PTS"] = 1
+    parameters["D_PTS"] = 1
+
+    points = np.array([[2, 2], [0, 0], [4, 2], [0, 0]])
+    numpoints = 4
+
+    assert not lic9(points, numpoints, parameters)
 
 #########
 # LIC10
