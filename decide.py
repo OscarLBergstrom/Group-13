@@ -54,8 +54,16 @@ def pum(cmv_response):
     pass
 
 
-def fuv(pum_response):
-    pass
+def fuv(pum_response, puv):
+    fuv = np.ones(15)
+    for i in range(15):
+        if not puv[i]:
+            continue
+        for j in range(15):
+            if i != j:
+                if not pum_response[i][j]:
+                    fuv[i] = False   
+    return fuv
 
 
 
