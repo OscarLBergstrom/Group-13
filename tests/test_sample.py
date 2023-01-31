@@ -530,19 +530,25 @@ def test_lic10_unit_false():
 # LIC11
 #########
 
-def test_lic11_true():
+def test_lic11_true(): #Tests a test case which should return True
     nrpoints = 5
     points = np.array([[0, 0], [4, 3], [1, 2], [2, 3], [3, 4], ])
     parameters = {"G_PTS": 2}
     assert lic11(nrpoints, points, parameters)
 
 
-def test_lic11_false():
+def test_lic11_false(): #Tests a test case which should return false
     nrpoints = 5
     parameters = {"G_PTS": 2}
     points = np.array([[0, 0], [1, 2], [2, 3], [3, 3], [3, 4]])
     assert not lic11(nrpoints, points, parameters)
 
+
+def test_lic11_invalid(): #Test that it returns false if numpoints < 2
+    numpoints = 2
+    points = np.array([[4, 3], [3, 4]])
+    parameters = {"G_PTS": 1}
+    assert not lic11(numpoints, points, parameters)
 
 #########
 # LIC12
