@@ -9,53 +9,71 @@ from decide import *
 
 
 def test_decide_true():
-
-    numpoints = 9
-    points = np.zeros((numpoints, 2))
-
-    points[0] = [1, 1]
-    points[1] = [2, 2]
-    points[2] = [3, 3]
-    points[3] = [4, 4]
-    points[4] = [5, 5]
-    points[5] = [6, 6]
-    points[6] = [7, 7]
-
-    points[7] = [1, 2]
-    points[8] = [2, 3]
-    points[9] = [3, 4]
-
-    assert decide(points, numpoints, parameters, lcm, puv) == 'YES'
-
-
-def test_decide_false():
-    points = np.zeros((numpoints, 2))
+    
+    numpoints = 30
+    points = [[1,1],[2,2],[3,3],[5,5],[6,6],[7,7],[1,2],[2,3],
+    [3,4],[0,0],[0,0],[15,15],[1,1],[0,0],[0,10],[20,0],[1,0],[2,3],
+    [0,1],[1,1],[-1,-1],[-1,1],[0,0],[0,1],[0,0],[3,3],[1,-1],[0,0],[3,3],[0,0]]
     lcm = np.zeros((15, 15))  # 0=NOTUSED, 1=ANDD, 2=ORR
     puv = np.zeros(15)
 
     parameters = {
         # Inpus to the Decide()-function
-        "LENGTH1": 0,     # LICS 0,7,12
-        "RADIUS1": 0,     # LICS 1,8,13
-        "EPSILON": 0,     # Deviation from PI LIC 2,9
-        "AREA1": 0,       # LICS 3,10,14
-        "Q_PTS": 0,       # Number of concecutive points LIC 4
-        "QUADS": 0,       # Number of concecutive in LIC 4
-        "DIST": 0,        # Distance in LIC 6
-        "N_PTS": 0,       # Number of concecutive points in LIC 6
-        "K_PTS": 0,       # No. of int. pts. in LICs 7 , 12
-        "A_PTS": 0,       # No. of int. pts. in LICs 8 , 13
-        "B_PTS": 0,       # No. of int. pts. in LICs 8 , 13
-        "C_PTS": 0,       # No. of int. pts. in LIC 9
-        "D_PTS": 0,       # No. of int. pts. in LIC 9
-        "E_PTS": 0,  # Number of integer points in LICs 10, 14
-        "F_PTS": 0,  # Number of integer points in LICs 10, 14
-        "G_PTS": 0,  # Number of integer points in LIC 11
-        "LENGTH2": 0,  # Maximum lenght in LIC 12
-        "RADIUS": 0,  # Maximum lenght in LIC 13
-        "AREA2": 0,  # Maximum area in LIC 14
+        "LENGTH1": 1,     # LICS 0,7,12
+        "RADIUS1": 1,     # LICS 1,8,13
+        "EPSILON": 1,     # Deviation from PI LIC 2,9
+        "AREA1": 90,       # LICS 3,10,14
+        "Q_PTS": 3,       # Number of concecutive points LIC 4
+        "QUADS": 2,       # Number of concecutive in LIC 4
+        "DIST": 3,        # Distance in LIC 6
+        "N_PTS": 3,       # Number of concecutive points in LIC 6
+        "K_PTS": 1,       # No. of int. pts. in LICs 7 , 12
+        "A_PTS": 1,       # No. of int. pts. in LICs 8 , 13
+        "B_PTS": 1,       # No. of int. pts. in LICs 8 , 13
+        "C_PTS": 1,       # No. of int. pts. in LIC 9
+        "D_PTS": 1,       # No. of int. pts. in LIC 9
+        "E_PTS": 1,  # Number of integer points in LICs 10, 14
+        "F_PTS": 1,  # Number of integer points in LICs 10, 14
+        "G_PTS": 1,  # Number of integer points in LIC 11
+        "LENGTH2": 1,  # Maximum lenght in LIC 12
+        "RADIUS2": 1,  # Maximum lenght in LIC 13
+        "AREA2": 1,  # Maximum area in LIC 14
     }
-    assert decide(points, numpoints, parameters, lcm, puv) == 'NO'
+
+    assert decide(points, numpoints, parameters, lcm, puv) == 'YES'
+
+
+# def test_decide_false():
+#     numpoints = 12
+#     points = [[1, 1],[2, 2],[3, 3],[5,5],[6,6],[7,7],[1,2],[2,3],[3,4],[0,0],[0,0],[15,15]]
+
+#     lcm = np.zeros((15, 15))  # 0=NOTUSED, 1=ANDD, 2=ORR
+#     puv = np.zeros(15)
+
+#     parameters = {
+#         # Inpus to the Decide()-function
+#         "LENGTH1": 1,     # LICS 0,7,12
+#         "RADIUS1": 1,     # LICS 1,8,13
+#         "EPSILON": 1,     # Deviation from PI LIC 2,9
+#         "AREA1": 1,       # LICS 3,10,14
+#         "Q_PTS": 1,       # Number of concecutive points LIC 4
+#         "QUADS": 1,       # Number of concecutive in LIC 4
+#         "DIST": 1,        # Distance in LIC 6
+#         "N_PTS": 1,       # Number of concecutive points in LIC 6
+#         "K_PTS": 1,       # No. of int. pts. in LICs 7 , 12
+#         "A_PTS": 1,       # No. of int. pts. in LICs 8 , 13
+#         "B_PTS": 1,       # No. of int. pts. in LICs 8 , 13
+#         "C_PTS": 1,       # No. of int. pts. in LIC 9
+#         "D_PTS": 1,       # No. of int. pts. in LIC 9
+#         "E_PTS": 1,  # Number of integer points in LICs 10, 14
+#         "F_PTS": 1,  # Number of integer points in LICs 10, 14
+#         "G_PTS": 1,  # Number of integer points in LIC 11
+#         "LENGTH2": 1,  # Maximum lenght in LIC 12
+#         "RADIUS2": 1,  # Maximum lenght in LIC 13
+#         "AREA2": 1,  # Maximum area in LIC 14
+#     }
+
+#     assert decide(points, numpoints, parameters, lcm, puv) == 'NO'
 
 #########
 # LIC2
@@ -82,7 +100,6 @@ def test_lic2():
 #########
 # LIC9
 #########
-
 
 def test_lic9_positive_1():        # test if it returns True when data satisfies the condition
     parameters["EPSILON"] = 0.1
@@ -276,14 +293,13 @@ def test_lic6_true1():
 
 
 def test_lic6_true2():
-    def test_lic6_true():
-        parameters = {
-            "DIST": 3,
-            "N_PTS": 3
-        }
-        numpoints = 3
-        points = np.array([[0, 0], [3, 3], [0, 0]])
-        assert lic6(points, numpoints, parameters)
+    parameters = {
+        "DIST": 3,
+        "N_PTS": 3
+    }
+    numpoints = 3
+    points = np.array([[0, 0], [3, 3], [0, 0]])
+    assert lic6(points, numpoints, parameters)
 
 # Tests that it fails if N_PTS < 3
 

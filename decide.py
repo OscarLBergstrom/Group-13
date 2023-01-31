@@ -30,7 +30,7 @@ parameters = {
     "F_PTS": 0,  # Number of integer points in LICs 10, 14
     "G_PTS": 0,  # Number of integer points in LIC 11
     "LENGTH2": 0,  # Maximum lenght in LIC 12
-    "RADIUS": 0,  # Maximum lenght in LIC 13
+    "RADIUS2": 0,  # Maximum lenght in LIC 13
     "AREA2": 0,  # Maximum area in LIC 14
 }
 
@@ -113,7 +113,6 @@ def lic3(points, numpoints, parameters):
 
 
 def lic4(points, numpoints, parameters):
-
     q = parameters["Q_PTS"]
     quadrants = np.zeros(4)
     count = 0
@@ -152,17 +151,17 @@ def lic5(numpoints, points):
             return True
     return False
 
-def lic6(points, numpoins, parameters):
+def lic6(points, numpoints, parameters):
     # Interpretated the line as infinite and not finite between the points.
     n_points = parameters["N_PTS"]
     dist = parameters["DIST"]
     if n_points < 3:
         return False
 
-    for i in range(numpoins-n_points):
+    for i in range(numpoints-n_points):
         start_point = points[i]
         end_point = points[i + n_points]
-        line_direction = start_point - end_point
+        line_direction = np.subtract(start_point, end_point)
 
         for j in range(n_points):
             if np.array_equal(start_point, end_point):
@@ -170,7 +169,7 @@ def lic6(points, numpoins, parameters):
                     return True
 
             else:
-                point_new_coords = points[i+j]-start_point
+                point_new_coords = np.subtract(points[i+j],start_point)
                 orthogonal_vector = point_new_coords - \
                     project(line_direction, point_new_coords)
                 if dist < np.dot(orthogonal_vector, orthogonal_vector)**(1/2):
@@ -336,14 +335,17 @@ if __name__ == '__main__':
 # Calculates the area of a triangle with the datapoints a,b,c. Used in Lic 3.
 
 
-def herons_formula(a, b, c):
+def  herons_formula(a, b, c):
     len_1 = calculate_length(a, b)
     len_2 = calculate_length(a, c)
     len_3 = calculate_length(b, c)
 
-    s = (len_1 + len_2 + len_3)/2
+    number = (len_1 + len_2 + len_3)/2
 
-    area = math.sqrt(s*(s-len_1)*(s-len_2)*(s-len_3))
+    if number*(number-len_1)*(number-len_2)*(number-len_3) < 0:
+        area = 0
+    else: 
+        area = math.sqrt(number*(number-len_1)*(number-len_2)*(number-len_3))
 
     return area
 
@@ -351,9 +353,8 @@ def herons_formula(a, b, c):
 
 
 def calculate_length(a, b):
-    len = math.sqrt(pow(a[0]-b[0], 2) + pow(a[1]-b[1], 2))
+    len = math.dist(a,b)
     return len
-
 
 def circleHelper(a, b, c, radius):
 
