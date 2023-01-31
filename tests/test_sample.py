@@ -515,13 +515,23 @@ def test_lic9_negative_1():  # test when the angle is less than pi + epsilon and
     assert not lic9(points, numpoints, parameters)
 
 
-def test_lic9_invalid_data():   # test when C_PTS + D_PTS > numpoints - 3
+def test_lic9_invalid_data1():   # test when C_PTS + D_PTS > numpoints - 3
     parameters["EPSILON"] = math.pi / 2
     parameters["C_PTS"] = 2
     parameters["D_PTS"] = 2
 
     points = np.array([[2, 2], [0, 0], [4, 2], [0, 0], [5, 4]])
     numpoints = 5
+
+    assert not lic9(points, numpoints, parameters)
+
+def test_lic9_invalid_data2():   # test when numpoints < 5
+    parameters["EPSILON"] = math.pi / 2
+    parameters["C_PTS"] = 1
+    parameters["D_PTS"] = 1
+
+    points = np.array([[2, 2], [0, 0], [4, 2], [0, 0]])
+    numpoints = 4
 
     assert not lic9(points, numpoints, parameters)
 
