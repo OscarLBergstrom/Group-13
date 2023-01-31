@@ -526,6 +526,15 @@ def test_lic10_unit_false():
     assert value == False
 
 
+def test_lic10_unit_invalid(): # Test that it returns False if there are less than 5 points
+    parameters["AREA1"] = 90
+    parameters["E_PTS"] = 2
+    parameters["F_PTS"] = 3
+    points = [[10, 10], [0, 0], [10, 10]]
+    value = lic10(points, len(points), parameters)
+
+    assert value == False
+
 #########
 # LIC11
 #########
@@ -666,6 +675,15 @@ def test_lic14_unit_true():
     points = [[10, 10], [0, 0], [10, 10], [10, 10], [
         0, 10], [10, 10], [10, 20], [10, 10], [20, 0]]
     assert lic14(points, len(points), parameters) == True
+
+
+def test_lic14_unit_invalid(): # Test that it returns False if there are less than 5 points
+    parameters["AREA1"] = 90
+    parameters["AREA2"] = 110
+    parameters["E_PTS"] = 2
+    parameters["F_PTS"] = 3
+    points = [[10, 10], [0, 0], [10, 10]]
+    assert lic14(points, len(points), parameters) == False
 
 
 #########
