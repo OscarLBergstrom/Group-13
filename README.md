@@ -90,4 +90,10 @@ The practices are supported by the teams communication on slack.
 One obstaceles to reach the next state is that every groupmember needs to become familiar with the processes and tools used in the project. This will be done by continious feedback and continiously use the practices and tools. 
 
 
+### P+ contribution
+
+In order to achive the P+ grade we used CircleCI integration on Github. 
+
+We also connected the commits to issues in the title or description.
+
 
