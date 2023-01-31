@@ -53,12 +53,35 @@ def cmv(points, numpoints, parameters):
     return response
 
 
-def pum(cmv_response):
-    pass
+def pum(cmv_response, lcm):
+    pum = np.zeros((15,15))
+    for i in range(15):
+        for j in range(15):
+            if i==j:
+                continue
+            condition = lcm[i][j]
+            result = 0
+            if condition == 0:
+                result = 1
+            if condition == 1:
+                result = cmv_response[i] and cmv_response[j]
+            if condition == 2:
+                result = cmv_response[i] or cmv_response[j]
+            pum[i][j] = result
+            pum[j][i] = result
+        
+    return pum
 
-
-def fuv(pum_response):
-    pass
+def fuv(pum_response, puv):
+    fuv = np.ones(15)
+    for i in range(15):
+        if not puv[i]:
+            continue
+        for j in range(15):
+            if i != j:
+                if not pum_response[i][j]:
+                    fuv[i] = False   
+    return fuv
 
 
 def lic0(points, numpoints, length):

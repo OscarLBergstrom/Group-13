@@ -80,6 +80,45 @@ def test_decide_true():
 #########
 
 
+#########
+# PUM
+#########
+def test_pum_correct():
+    lcm = np.zeros((15,15)) #Testing the example from the specifications
+    lcm[0:4,0:4] = [[1,1,2,1],[1,1,2,2],[2,2,1,1],[1,2,1,1]]
+    cmv = np.array([False, True, True, True, False, False, False, False, False, False, False, False, False, False, False])
+    result_pum = pum(cmv,lcm)
+    expected_pum = np.ones((15,15))
+    expected_pum[0:4,0:4] = [[0,0,1,0],[0,0,1,1],[1,1,0,1],[0,1,1,0]]
+    
+    for i in range(15):     # setting the diagonal to 0
+        for j in range(15):
+            if i == j:
+                expected_pum[i][j] = 0
+
+    assert np.array_equal(expected_pum,result_pum)
+
+#########
+# FUV
+#########
+
+def test_fuv_correct():
+    pum = np.ones((15,15))
+    pum[0:4,0:4] = [[0,0,1,0],[0,0,1,1],[1,1,0,1],[0,1,1,0]]
+
+    for i in range(15):     # setting the diagonal to 0
+        for j in range(15):
+            if i == j:
+                pum[i][j] = 0
+    puv = np.ones(15)
+    puv[1] = False
+    puv[3] = False
+    puv[5] = False
+    result_fuv = fuv(pum,puv)
+    excepted_fuv = np.ones(15)
+    excepted_fuv[0] = False
+    assert np.array_equal(result_fuv,excepted_fuv)
+
 def test_lic2():
     parameters["EPSILON"] = 0.1
     points = np.array([[4, 6], [6, 4], [4, 4]])  # 45 degrees is < pi - epsilon
