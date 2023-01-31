@@ -42,7 +42,12 @@ def decide():
 
 
 def cmv():
-    pass
+    response = [lic0(points, numpoints, parameters["LENGTH1"]), lic1(points, numpoints), lic2(points, numpoints), lic3(points, numpoints)
+        , lic4(points, numpoints), lic5(numpoints, points), lic6(points, numpoints, parameters), lic7(points, numpoints, parameters["LENGTH1"], parameters["K_PTS"])
+        , lic8(points, numpoints), lic9(points, numpoints), lic10(points, numpoints), lic11(numpoints, points, parameters),
+        lic12(points, numpoints, parameters["LENGTH1"], parameters["LENGTH2"], parameters["K_PTS"]), lic13(points, numpoints), lic14(points, numpoints)]
+
+    return response
 
 
 def pum(cmv_response, lcm):
@@ -64,8 +69,16 @@ def pum(cmv_response, lcm):
         
     return pum
 
-def fuv(pum_response):
-    pass
+def fuv(pum_response, puv):
+    fuv = np.ones(15)
+    for i in range(15):
+        if not puv[i]:
+            continue
+        for j in range(15):
+            if i != j:
+                if not pum_response[i][j]:
+                    fuv[i] = False   
+    return fuv
 
 
 
@@ -315,8 +328,29 @@ def lic13(points, numpoints):
     return cond3
 
 
-def lic14():
-    pass
+def lic14(points, numpoints):
+    AREA1 = parameters["AREA1"]
+    AREA2 = parameters["AREA2"]
+    E_PTS = parameters["E_PTS"]
+    F_PTS = parameters["F_PTS"]
+
+    if numpoints < 5:
+        return False
+    
+    triangle_larger = False
+    triangle_smaller = False
+
+    for i in range(numpoints - (E_PTS+F_PTS+2)):
+        temp_area = herons_formula(points[i], points[i + E_PTS + 1], points[i+ F_PTS + E_PTS + 2])
+        
+        if temp_area > AREA1:
+            triangle_larger = True
+        if temp_area < AREA2:
+            triangle_smaller = True
+        if triangle_smaller and triangle_larger:
+            return True
+    
+    return False
 
 
 if __name__ == '__main__':
