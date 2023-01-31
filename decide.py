@@ -109,6 +109,9 @@ def lic1(points, numpoints, parameters):
 
 
 def lic2(points, numpoints, parameters):
+    if parameters["EPSILON"] >= PI or parameters["EPSILON"] < 0:
+        return False
+
     for i in range(1, numpoints-1):
         v = points[i]
         p1 = points[i-1]
@@ -136,7 +139,12 @@ def lic3(points, numpoints, parameters):
 
 
 def lic4(points, numpoints, parameters):
+
     q = parameters["Q_PTS"]
+
+    if q > numpoints or parameters["QUADS"] > 4:
+        return False
+
     quadrants = np.zeros(4)
     count = 0
     for i in range(0, numpoints-q+1):
@@ -209,27 +217,6 @@ def lic7(points, numpoints, length, k_pts):
     return False
 
 
-def lic9(points, numpoints, parameters):
-    if numpoints < 5:
-        return False
-
-    c = parameters["C_PTS"]
-    d = parameters["D_PTS"]
-
-    for i in range(0, numpoints):
-        if i + d + c + 2 >= numpoints:
-            break
-        v = points[i+c+1]
-        p1 = points[i]
-        p2 = points[i+c+d+2]
-        if np.array_equal(v, p2) or np.array_equal(v, p1):
-            continue
-        if angle(v, p1, p2) < (PI-parameters["EPSILON"]) or angle(v, p1, p2) > (PI + parameters["EPSILON"]):
-            return True
-
-    return False
-
-
 def lic8(points, numpoints, parameters):
 
     # pdb.set_trace()
@@ -244,6 +231,28 @@ def lic8(points, numpoints, parameters):
 
     for i in range(len(points) - (a_pts+b_pts+2)):
         if circleHelper(points[i], points[i+1+a_pts], points[i+2+a_pts+b_pts], radius):
+            return True
+
+    return False
+
+
+def lic9(points, numpoints, parameters):
+
+    c = parameters["C_PTS"]
+    d = parameters["D_PTS"]
+
+    if numpoints < 5 or c + d > numpoints - 3:
+        return False
+
+    for i in range(0, numpoints):
+        if i + d + c + 2 >= numpoints:
+            break
+        v = points[i+c+1]
+        p1 = points[i]
+        p2 = points[i+c+d+2]
+        if np.array_equal(v, p2) or np.array_equal(v, p1):
+            continue
+        if angle(v, p1, p2) < (PI-parameters["EPSILON"]) or angle(v, p1, p2) > (PI + parameters["EPSILON"]):
             return True
 
     return False
